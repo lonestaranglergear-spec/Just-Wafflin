@@ -1,0 +1,3888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>JUST WAFFLIN' FUN ZONE | 4-in-1 Restaurant Games</title>
+  <meta name="description" content="Take a breakfast break with 4 deliciously fun games from Just Wafflin' in Stillwater, OK! Stack waffle towers, build your dream waffle, catch syrup, and dash morning rush orders." />
+  <meta property="og:title" content="JUST WAFFLIN' FUN ZONE | 4-in-1 Restaurant Games" />
+  <meta property="og:description" content="Good Morning. Great Waffles. Even Better Games! Challenge yourself with 4 custom breakfast arcade games." />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#F59E0B" />
+
+  <style>
+    :root {
+      --waffle-gold: #F59E0B;
+      --waffle-deep: #D97706;
+      --waffle-light: #FDE68A;
+      --waffle-crust: #B45309;
+      --syrup-amber: #92400E;
+      --syrup-dark: #451A03;
+      --cream-bg: #FFFDF5;
+      --card-bg: #FFFFFF;
+      --strawberry-red: #EF4444;
+      --blueberry-blue: #3B82F6;
+      --butter-yellow: #FEF08A;
+      --coffee-brown: #3E1F17;
+      --border-warm: rgba(180, 83, 9, 0.18);
+      --shadow-sm: 0 4px 6px -1px rgba(146, 64, 14, 0.08), 0 2px 4px -2px rgba(146, 64, 14, 0.05);
+      --shadow-md: 0 10px 15px -3px rgba(146, 64, 14, 0.12), 0 4px 6px -4px rgba(146, 64, 14, 0.08);
+      --shadow-lg: 0 20px 25px -5px rgba(146, 64, 14, 0.16), 0 8px 10px -6px rgba(146, 64, 14, 0.1);
+      --shadow-btn: 0 5px 0 var(--syrup-dark);
+      --font-display: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Nunito', 'Fredoka', sans-serif;
+      --font-body: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--cream-bg);
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(245, 158, 11, 0.06) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(239, 68, 68, 0.04) 0%, transparent 40%),
+        linear-gradient(rgba(217, 119, 6, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(217, 119, 6, 0.035) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 36px 36px, 36px 36px;
+      color: var(--coffee-brown);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      line-height: 1.5;
+    }
+
+    /* Common Button Styles */
+    .btn {
+      font-family: var(--font-display);
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: 9999px;
+      border: 2px solid var(--syrup-dark);
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+      user-select: none;
+      position: relative;
+      outline: none;
+      box-shadow: 0 4px 0 var(--syrup-dark);
+      font-size: 1rem;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 0 var(--syrup-dark);
+    }
+
+    .btn:active {
+      transform: translateY(3px);
+      box-shadow: 0 1px 0 var(--syrup-dark);
+    }
+
+    .btn-primary {
+      background: linear-gradient(180deg, #FBBF24 0%, #F59E0B 100%);
+      color: var(--syrup-dark);
+    }
+
+    .btn-secondary {
+      background: #FFFFFF;
+      color: var(--syrup-amber);
+    }
+
+    .btn-danger {
+      background: linear-gradient(180deg, #F87171 0%, #EF4444 100%);
+      color: #FFFFFF;
+      border-color: #7F1D1D;
+      box-shadow: 0 4px 0 #7F1D1D;
+    }
+    .btn-danger:hover { box-shadow: 0 6px 0 #7F1D1D; }
+    .btn-danger:active { box-shadow: 0 1px 0 #7F1D1D; }
+
+    .btn-sm {
+      padding: 6px 14px;
+      font-size: 0.875rem;
+      box-shadow: 0 3px 0 var(--syrup-dark);
+    }
+
+    /* Audio Bar & Header */
+    header {
+      background: rgba(255, 253, 245, 0.95);
+      border-bottom: 2px solid var(--border-warm);
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      backdrop-filter: blur(8px);
+      padding: 12px 20px;
+    }
+
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand-lockup {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .brand-icon {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, #FBBF24, #D97706);
+      border: 2px solid var(--syrup-dark);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 3px 0 var(--syrup-dark);
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .brand-icon::after {
+      content: '';
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      width: 12px;
+      height: 12px;
+      background: #FEF08A;
+      border-radius: 3px;
+      border: 1px solid rgba(0,0,0,0.15);
+      transform: rotate(15deg);
+    }
+
+    .brand-title {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--syrup-dark);
+      letter-spacing: -0.5px;
+      line-height: 1;
+    }
+
+    .brand-sub {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--waffle-crust);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .profile-pill {
+      background: #FFFFFF;
+      border: 2px solid var(--border-warm);
+      border-radius: 9999px;
+      padding: 6px 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.2s;
+    }
+
+    .profile-pill:hover {
+      border-color: var(--waffle-gold);
+      transform: translateY(-1px);
+    }
+
+    .sound-toggle {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 2px solid var(--syrup-dark);
+      background: #FFFFFF;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 3px 0 var(--syrup-dark);
+      transition: transform 0.1s, box-shadow 0.1s;
+    }
+    .sound-toggle:active {
+      transform: translateY(2px);
+      box-shadow: 0 1px 0 var(--syrup-dark);
+    }
+
+    /* Main Container */
+    main {
+      flex: 1;
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 24px 20px 48px;
+    }
+
+    /* Hero Section */
+    .hero-section {
+      text-align: center;
+      padding: 36px 16px 28px;
+      position: relative;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #FEF3C7;
+      border: 1.5px solid #F59E0B;
+      color: #92400E;
+      padding: 6px 16px;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 16px;
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 6vw, 3.8rem);
+      font-weight: 700;
+      color: var(--syrup-dark);
+      line-height: 1.1;
+      margin-bottom: 12px;
+      text-shadow: 0 2px 0 rgba(245, 158, 11, 0.3);
+    }
+
+    .hero-title span {
+      color: #D97706;
+      position: relative;
+      display: inline-block;
+    }
+
+    .hero-subtitle {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--waffle-crust);
+      margin-bottom: 8px;
+    }
+
+    .hero-desc {
+      font-size: 1rem;
+      color: #6B4627;
+      max-width: 580px;
+      margin: 0 auto 24px;
+    }
+
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    .stat-chip {
+      background: #FFFFFF;
+      border: 1.5px solid var(--border-warm);
+      border-radius: 16px;
+      padding: 10px 18px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .stat-chip .val {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--syrup-dark);
+    }
+    .stat-chip .lbl {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #8C5938;
+      text-transform: uppercase;
+    }
+
+    /* Daily Challenge Card */
+    .challenge-banner {
+      background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
+      border: 2px dashed #D97706;
+      border-radius: 20px;
+      padding: 18px 24px;
+      margin-bottom: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .challenge-info {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .challenge-icon {
+      font-size: 2.2rem;
+      background: #FFFFFF;
+      width: 52px;
+      height: 52px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #F59E0B;
+      flex-shrink: 0;
+    }
+    .challenge-title {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--syrup-dark);
+    }
+    .challenge-desc {
+      font-size: 0.9rem;
+      color: #78350F;
+    }
+
+    /* Game Cards Grid */
+    .section-heading {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: var(--syrup-dark);
+    }
+    .section-subtitle {
+      font-size: 0.9rem;
+      color: #92400E;
+      font-weight: 500;
+    }
+
+    .game-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 24px;
+      margin-bottom: 48px;
+    }
+
+    .game-card {
+      background: var(--card-bg);
+      border-radius: 24px;
+      border: 2.5px solid var(--border-warm);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s, border-color 0.25s;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .game-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--waffle-gold);
+    }
+
+    .game-thumb {
+      height: 180px;
+      background: #FFFBEB;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border-bottom: 2px solid var(--border-warm);
+    }
+
+    .game-card:nth-child(1) .game-thumb {
+      background: radial-gradient(circle, #FEF3C7 30%, #FDE68A 100%);
+    }
+    .game-card:nth-child(2) .game-thumb {
+      background: radial-gradient(circle, #FEE2E2 30%, #FECACA 100%);
+    }
+    .game-card:nth-child(3) .game-thumb {
+      background: radial-gradient(circle, #FEF9C3 30%, #FEF08A 100%);
+    }
+    .game-card:nth-child(4) .game-thumb {
+      background: radial-gradient(circle, #E0E7FF 30%, #C7D2FE 100%);
+    }
+
+    .game-illustration {
+      font-size: 5rem;
+      filter: drop-shadow(0 6px 8px rgba(0,0,0,0.12));
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .game-card:hover .game-illustration {
+      transform: scale(1.12) rotate(4deg);
+    }
+
+    .game-tag {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: rgba(255, 255, 255, 0.95);
+      border: 1.5px solid var(--border-warm);
+      border-radius: 9999px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--syrup-dark);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+    }
+
+    .game-content {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .game-header {
+      margin-bottom: 8px;
+    }
+    .game-title {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--syrup-dark);
+      line-height: 1.2;
+    }
+    .game-genre {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--waffle-deep);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .game-desc {
+      font-size: 0.9rem;
+      color: #6B4627;
+      margin-bottom: 16px;
+      flex: 1;
+    }
+
+    .game-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1.5px solid var(--border-warm);
+      padding-top: 14px;
+      margin-bottom: 16px;
+    }
+    .difficulty-badge {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #78350F;
+    }
+    .stars {
+      color: #F59E0B;
+      letter-spacing: 1px;
+    }
+    .personal-best {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--syrup-dark);
+      background: #FEF3C7;
+      padding: 3px 8px;
+      border-radius: 8px;
+    }
+
+    .game-card .btn {
+      width: 100%;
+    }
+
+    /* Achievements Section */
+    .achievements-section {
+      background: #FFFFFF;
+      border: 2px solid var(--border-warm);
+      border-radius: 24px;
+      padding: 24px;
+      margin-bottom: 48px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .achievements-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    .achievement-card {
+      background: #FFFDF5;
+      border: 2px solid var(--border-warm);
+      border-radius: 16px;
+      padding: 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: all 0.2s;
+    }
+    .achievement-card.unlocked {
+      background: #FEF3C7;
+      border-color: #F59E0B;
+      box-shadow: 0 4px 10px rgba(245, 158, 11, 0.15);
+    }
+    .achievement-icon {
+      font-size: 1.8rem;
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1.5px solid var(--border-warm);
+      flex-shrink: 0;
+      filter: grayscale(100%);
+      opacity: 0.5;
+    }
+    .achievement-card.unlocked .achievement-icon {
+      filter: grayscale(0%);
+      opacity: 1;
+      border-color: #F59E0B;
+    }
+    .achievement-details {
+      display: flex;
+      flex-direction: column;
+    }
+    .achievement-name {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--syrup-dark);
+      line-height: 1.2;
+    }
+    .achievement-desc {
+      font-size: 0.75rem;
+      color: #78350F;
+    }
+
+    /* Restaurant & Visit Banner */
+    .visit-banner {
+      background: linear-gradient(135deg, #78350F 0%, #451A03 100%);
+      color: #FFFFFF;
+      border-radius: 24px;
+      padding: 32px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-bottom: 48px;
+      box-shadow: var(--shadow-md);
+      position: relative;
+      overflow: hidden;
+    }
+    .visit-banner::before {
+      content: '🧇';
+      position: absolute;
+      right: -20px;
+      bottom: -20px;
+      font-size: 10rem;
+      opacity: 0.12;
+      pointer-events: none;
+    }
+
+    .visit-text {
+      max-width: 600px;
+    }
+    .visit-heading {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: #FEF3C7;
+    }
+    .visit-address {
+      font-size: 1rem;
+      opacity: 0.9;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .visit-tagline {
+      font-size: 0.95rem;
+      opacity: 0.8;
+    }
+
+    .visit-buttons {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    /* Footer */
+    footer {
+      background: #FFFFFF;
+      border-top: 2px solid var(--border-warm);
+      padding: 36px 20px;
+      text-align: center;
+      margin-top: auto;
+    }
+
+    .footer-logo {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--syrup-dark);
+      margin-bottom: 8px;
+    }
+
+    .footer-location {
+      font-size: 0.9rem;
+      color: #78350F;
+      margin-bottom: 16px;
+    }
+
+    .footer-disclaimer {
+      font-size: 0.8rem;
+      color: #9CA3AF;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    /* =======================================================
+       MODAL & GAME SHELL STYLING (MOBILE-FIRST RESPONSIVE)
+       ======================================================= */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(41, 21, 8, 0.88);
+      backdrop-filter: blur(4px);
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+      padding-bottom: max(10px, env(safe-area-inset-bottom, 10px));
+      padding-top: max(10px, env(safe-area-inset-top, 10px));
+      box-sizing: border-box;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .game-container {
+      background: var(--cream-bg);
+      border-radius: 20px;
+      border: 3px solid var(--syrup-dark);
+      width: min(94vw, 560px);
+      max-width: 680px;
+      /* 100vh fallback and 100dvh for dynamic mobile browser chrome */
+      height: calc(100vh - 20px);
+      height: calc(100dvh - 20px);
+      max-height: 800px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+      position: relative;
+      box-sizing: border-box;
+    }
+
+    .game-navbar {
+      background: #FFFFFF;
+      border-bottom: 2px solid var(--border-warm);
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-shrink: 0;
+      min-height: 48px;
+      box-sizing: border-box;
+    }
+
+    .game-nav-title {
+      font-family: var(--font-display);
+      font-size: clamp(0.95rem, 3.6vw, 1.2rem);
+      font-weight: 700;
+      color: var(--syrup-dark);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .game-controls-bar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .icon-btn {
+      width: 36px;
+      height: 36px;
+      min-width: 36px;
+      border-radius: 50%;
+      border: 1.5px solid var(--border-warm);
+      background: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: all 0.15s;
+      user-select: none;
+    }
+    .icon-btn:hover {
+      background: #FEF3C7;
+      border-color: #F59E0B;
+    }
+    .icon-btn:active {
+      transform: translateY(2px);
+    }
+
+    .game-viewport {
+      position: relative;
+      background: #FFFDF5;
+      flex: 1 1 0;
+      min-height: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+    }
+
+    /* Common Game HUD Overlay */
+    .hud-bar {
+      position: absolute;
+      top: 8px;
+      left: 10px;
+      right: 10px;
+      display: flex;
+      justify-content: space-between;
+      pointer-events: none;
+      z-index: 20;
+    }
+    .hud-pill {
+      background: rgba(255, 255, 255, 0.95);
+      border: 2px solid var(--syrup-dark);
+      border-radius: 9999px;
+      padding: 4px 10px;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(0.82rem, 2.8vw, 0.95rem);
+      color: var(--syrup-dark);
+      box-shadow: 0 2px 0 var(--syrup-dark);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Game Stage Screens (Intro, Game Over, Pause) */
+    .game-stage-screen {
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 253, 245, 0.98);
+      display: flex;
+      flex-direction: column;
+      z-index: 30;
+      box-sizing: border-box;
+      overflow: hidden;
+      width: 100%;
+      height: 100%;
+    }
+
+    .stage-screen-inner {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      padding: 12px 14px;
+      overflow: hidden;
+    }
+
+    .stage-header {
+      flex-shrink: 0;
+      text-align: center;
+      margin-bottom: 6px;
+    }
+
+    .stage-illustration {
+      font-size: clamp(2.2rem, 6.5vw, 3.2rem);
+      line-height: 1.1;
+      margin-bottom: 2px;
+    }
+
+    .game-stage-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.2rem, 4.4vw, 1.7rem);
+      font-weight: 700;
+      color: var(--syrup-dark);
+      line-height: 1.15;
+      margin-bottom: 2px;
+    }
+
+    .game-stage-subtitle {
+      font-size: clamp(0.78rem, 2.7vw, 0.9rem);
+      color: #78350F;
+      max-width: 420px;
+      margin: 0 auto;
+      line-height: 1.3;
+    }
+
+    .stage-body {
+      flex: 1 1 auto;
+      min-height: 0;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 4px 0;
+      margin-bottom: 6px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .game-instructions-box {
+      background: #FFFFFF;
+      border: 2px dashed #D97706;
+      border-radius: 12px;
+      padding: 8px 12px;
+      width: 100%;
+      max-width: 420px;
+      box-sizing: border-box;
+      font-size: clamp(0.76rem, 2.6vw, 0.86rem);
+      color: #6B4627;
+      line-height: 1.35;
+      text-align: left;
+    }
+
+    .game-instructions-box ul {
+      margin-left: 18px;
+      margin-top: 4px;
+    }
+
+    .game-instructions-box li {
+      margin-bottom: 3px;
+    }
+
+    .stage-footer {
+      flex-shrink: 0;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      padding-top: 4px;
+      padding-bottom: max(4px, env(safe-area-inset-bottom, 4px));
+    }
+
+    /* Start Button Pulse Animation & Sizing */
+    @keyframes startPulse {
+      0% {
+        transform: scale(1);
+        box-shadow: 0 4px 0 var(--syrup-dark), 0 0 0 rgba(245, 158, 11, 0);
+      }
+      50% {
+        transform: scale(1.02);
+        box-shadow: 0 5px 0 var(--syrup-dark), 0 0 16px rgba(245, 158, 11, 0.45);
+      }
+      100% {
+        transform: scale(1);
+        box-shadow: 0 4px 0 var(--syrup-dark), 0 0 0 rgba(245, 158, 11, 0);
+      }
+    }
+
+    .btn-start-game {
+      width: 100%;
+      max-width: 360px;
+      min-height: 52px;
+      height: 52px;
+      font-size: clamp(1rem, 3.8vw, 1.2rem);
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      animation: startPulse 2.4s ease-in-out infinite;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Score Stat Grid on Game Over */
+    .result-stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      width: 100%;
+      max-width: 380px;
+      margin-bottom: 6px;
+    }
+
+    .result-stat-box {
+      background: #FFFFFF;
+      border: 2px solid var(--border-warm);
+      border-radius: 12px;
+      padding: 8px 10px;
+      box-shadow: var(--shadow-sm);
+      text-align: center;
+    }
+    .result-stat-box.highlight {
+      background: #FEF3C7;
+      border-color: #F59E0B;
+    }
+    .result-stat-val {
+      font-family: var(--font-display);
+      font-size: clamp(1.2rem, 4vw, 1.5rem);
+      font-weight: 700;
+      color: var(--syrup-dark);
+      line-height: 1.1;
+    }
+    .result-stat-lbl {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: #8C5938;
+      text-transform: uppercase;
+    }
+
+    /* Specific Game Canvas / Viewport rules */
+    #stackCanvas, #catchCanvas {
+      width: 100%;
+      height: 100%;
+      touch-action: none;
+      display: block;
+    }
+
+    .stack-controls-footer {
+      position: absolute;
+      bottom: 10px;
+      left: 12px;
+      right: 12px;
+      display: flex;
+      justify-content: center;
+      pointer-events: auto;
+      z-index: 20;
+      padding-bottom: max(4px, env(safe-area-inset-bottom, 4px));
+    }
+
+    /* GAME 02: Build Your Dream Waffle layout */
+    .builder-layout {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      background: #FFFDF5;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .builder-plate-stage {
+      position: relative;
+      height: clamp(160px, 28vh, 230px);
+      background: radial-gradient(circle, #FFFBEB 0%, #FEF3C7 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 2px solid var(--border-warm);
+      overflow: hidden;
+      flex-shrink: 0;
+      padding: 6px;
+      box-sizing: border-box;
+    }
+
+    #wafflePlateCanvas {
+      border-radius: 50%;
+      box-shadow: 0 8px 20px rgba(120, 53, 15, 0.2);
+      cursor: crosshair;
+      touch-action: none;
+      width: min(200px, 24vh);
+      height: min(200px, 24vh);
+    }
+
+    .builder-controls {
+      padding: 8px 12px;
+      background: #FFFFFF;
+      flex: 1 1 auto;
+      min-height: 0;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .topping-category-title {
+      font-family: var(--font-display);
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--syrup-dark);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .toppings-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 5px;
+    }
+
+    .topping-btn {
+      background: #FFFDF5;
+      border: 1.5px solid var(--border-warm);
+      border-radius: 10px;
+      padding: 5px 2px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      cursor: pointer;
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: var(--syrup-dark);
+      transition: all 0.15s;
+    }
+    .topping-btn:hover {
+      background: #FEF3C7;
+      border-color: #F59E0B;
+    }
+    .topping-btn.selected {
+      background: #FDE68A;
+      border-color: #D97706;
+      box-shadow: 0 0 0 2px #F59E0B;
+    }
+    .topping-emoji {
+      font-size: 1.25rem;
+      line-height: 1;
+    }
+
+    .plate-styles-row {
+      display: flex;
+      gap: 5px;
+      align-items: center;
+    }
+
+    .plate-chip {
+      padding: 3px 8px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      background: #FFFDF5;
+      border: 1.5px solid var(--border-warm);
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .plate-chip.active {
+      background: #FEF3C7;
+      border-color: #D97706;
+      color: var(--syrup-dark);
+    }
+
+    .builder-action-footer {
+      flex-shrink: 0;
+      padding: 6px 12px;
+      padding-bottom: max(6px, env(safe-area-inset-bottom, 6px));
+      background: #FFFFFF;
+      border-top: 1.5px solid var(--border-warm);
+      display: flex;
+      gap: 8px;
+    }
+
+    /* GAME 04: Morning Rush Order Dash layout */
+    .rush-layout {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      background: #FFFBEB;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .rush-counter {
+      background: linear-gradient(180deg, #FEF3C7 0%, #FDE68A 100%);
+      border-bottom: 2px solid #D97706;
+      padding: 6px 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .customer-avatar {
+      width: 42px;
+      height: 42px;
+      background: #FFFFFF;
+      border: 2px solid var(--syrup-dark);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      flex-shrink: 0;
+      box-shadow: 0 2px 0 var(--syrup-dark);
+    }
+
+    .order-ticket {
+      background: #FFFFFF;
+      border: 1.5px dashed #92400E;
+      border-radius: 10px;
+      padding: 4px 8px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      min-width: 0;
+    }
+    .order-ticket::before {
+      content: 'ORDER';
+      position: absolute;
+      top: -6px;
+      left: 8px;
+      background: #92400E;
+      color: #FFFFFF;
+      font-size: 0.58rem;
+      font-weight: 800;
+      padding: 0 4px;
+      border-radius: 3px;
+    }
+    .order-recipe-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-top: 2px;
+    }
+    .order-badge {
+      background: #FEF3C7;
+      border: 1px solid #F59E0B;
+      color: #78350F;
+      padding: 2px 5px;
+      border-radius: 5px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      white-space: nowrap;
+    }
+
+    .prep-station {
+      flex: 1 1 auto;
+      min-height: 0;
+      padding: 6px 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .prep-category {
+      background: #FFFFFF;
+      border: 1.5px solid var(--border-warm);
+      border-radius: 10px;
+      padding: 4px 6px;
+    }
+    .prep-category-title {
+      font-family: var(--font-display);
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--syrup-dark);
+      margin-bottom: 3px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+    .prep-items-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 4px;
+    }
+    .prep-item-btn {
+      background: #FFFDF5;
+      border: 1.5px solid var(--border-warm);
+      border-radius: 8px;
+      padding: 4px 2px;
+      text-align: center;
+      cursor: pointer;
+      font-size: 0.68rem;
+      font-weight: 600;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1px;
+      min-height: 38px;
+    }
+    .prep-item-btn.selected {
+      background: #FEF3C7;
+      border-color: #F59E0B;
+      box-shadow: 0 0 0 2px #F59E0B;
+    }
+
+    .tray-bar {
+      background: #FFFFFF;
+      border-top: 2px solid var(--border-warm);
+      padding: 6px 10px;
+      padding-bottom: max(6px, env(safe-area-inset-bottom, 6px));
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+    .current-tray {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex: 1;
+    }
+    .tray-slot {
+      width: 36px;
+      height: 36px;
+      background: #FEF3C7;
+      border: 1.5px dashed #D97706;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.15rem;
+      flex-shrink: 0;
+    }
+
+    /* Nickname Modal */
+    .nickname-modal-box {
+      background: #FFFFFF;
+      border: 3px solid var(--syrup-dark);
+      border-radius: 20px;
+      padding: 18px;
+      max-width: 340px;
+      width: 100%;
+      text-align: center;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .nickname-input {
+      width: 100%;
+      padding: 10px 14px;
+      border: 2px solid var(--border-warm);
+      border-radius: 10px;
+      font-family: var(--font-display);
+      font-size: 1rem;
+      text-align: center;
+      margin: 12px 0;
+      outline: none;
+      box-sizing: border-box;
+    }
+    .nickname-input:focus {
+      border-color: #F59E0B;
+      box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2);
+    }
+
+    /* Floating Syrup / Sparkle Animation */
+    @keyframes floatDrop {
+      0% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-6px) rotate(4deg); }
+      100% { transform: translateY(0px) rotate(0deg); }
+    }
+    .float-anim {
+      animation: floatDrop 3s ease-in-out infinite;
+    }
+
+    /* Mobile Responsive Optimizations */
+    @media (max-width: 640px) {
+      .hero-title {
+        font-size: 2.1rem;
+      }
+      .challenge-banner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .visit-banner {
+        padding: 20px 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Sticky Navigation & Audio Bar -->
+  <header>
+    <div class="header-container">
+      <a href="#" class="brand-lockup">
+        <div class="brand-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#451A03" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="4" fill="#FBBF24"/>
+            <line x1="3" y1="9" x2="21" y2="9"/>
+            <line x1="3" y1="15" x2="21" y2="15"/>
+            <line x1="9" y1="3" x2="9" y2="21"/>
+            <line x1="15" y1="3" x2="15" y2="21"/>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-title">JUST WAFFLIN'</div>
+          <div class="brand-sub">FUN ZONE · STILLWATER, OK</div>
+        </div>
+      </a>
+
+      <div class="header-actions">
+        <div class="profile-pill" id="profilePill" title="Change Player Name">
+          <span>🧇</span>
+          <span id="navNickname">WaffleFan</span>
+          <span style="color:#D97706; font-weight:700;" id="navTotalScore">0 pts</span>
+        </div>
+
+        <button class="sound-toggle" id="soundToggle" aria-label="Toggle Sound Effects" title="Sound FX ON/OFF">
+          <span id="soundIcon">🔊</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Arcade Hub -->
+  <main>
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="hero-badge">
+        <span>⭐</span> Four Delicious Games. One Epic Arcade!
+      </div>
+      <h1 class="hero-title">
+        JUST WAFFLIN' <span>FUN ZONE</span>
+      </h1>
+      <p class="hero-subtitle">
+        "Good Morning. Great Waffles. Even Better Games!"
+      </p>
+      <p class="hero-desc">
+        Take a delicious breakfast break and challenge your reflexes, creativity, and speed with four interactive waffle games made for Stillwater!
+      </p>
+
+      <div class="hero-stats">
+        <div class="stat-chip">
+          <span style="font-size:1.4rem;">🏆</span>
+          <div>
+            <div class="val" id="hubBestScore">0</div>
+            <div class="lbl">High Score</div>
+          </div>
+        </div>
+        <div class="stat-chip">
+          <span style="font-size:1.4rem;">🎮</span>
+          <div>
+            <div class="val" id="hubGamesPlayed">0</div>
+            <div class="lbl">Games Played</div>
+          </div>
+        </div>
+        <div class="stat-chip">
+          <span style="font-size:1.4rem;">🎖️</span>
+          <div>
+            <div class="val" id="hubBadgesCount">0 / 6</div>
+            <div class="lbl">Achievements</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Daily Challenge Banner -->
+    <div class="challenge-banner" id="dailyChallengeBanner">
+      <div class="challenge-info">
+        <div class="challenge-icon float-anim">🥞</div>
+        <div>
+          <div class="challenge-title" id="dailyChallengeTitle">Daily Bounty: The Golden Stack!</div>
+          <div class="challenge-desc" id="dailyChallengeDesc">Stack at least 10 waffle layers in Waffle Stack Rush today to earn +150 bonus Hub Points!</div>
+        </div>
+      </div>
+      <button class="btn btn-primary btn-sm" id="dailyChallengeBtn" onclick="openGame('stack')">
+        PLAY CHALLENGE
+      </button>
+    </div>
+
+    <!-- The 4 Games Selection Grid -->
+    <section>
+      <div class="section-heading">
+        <div>
+          <h2 class="section-title">CHOOSE YOUR CHALLENGE</h2>
+          <p class="section-subtitle">Pick any game below to start playing instantly</p>
+        </div>
+      </div>
+
+      <div class="game-grid">
+        <!-- GAME 01: Waffle Stack Rush -->
+        <div class="game-card">
+          <div class="game-thumb">
+            <span class="game-tag">ARCADE</span>
+            <div class="game-illustration">🥞</div>
+          </div>
+          <div class="game-content">
+            <div class="game-header">
+              <div class="game-genre">Arcade · Reaction</div>
+              <h3 class="game-title">Waffle Stack Rush</h3>
+            </div>
+            <p class="game-desc">
+              Drop sliding golden waffles with pinpoint timing to build the ultimate breakfast tower before it topples!
+            </p>
+            <div class="game-meta">
+              <div class="difficulty-badge">
+                <span>Diff:</span>
+                <span class="stars">★★☆</span>
+              </div>
+              <div class="personal-best">
+                Best: <span id="cardBestStack">0</span>
+              </div>
+            </div>
+            <button class="btn btn-primary" onclick="openGame('stack')" data-start="stack">
+              PLAY NOW
+            </button>
+          </div>
+        </div>
+
+        <!-- GAME 02: Build Your Dream Waffle -->
+        <div class="game-card">
+          <div class="game-thumb">
+            <span class="game-tag">CREATIVE</span>
+            <div class="game-illustration">🍓</div>
+          </div>
+          <div class="game-content">
+            <div class="game-header">
+              <div class="game-genre">Creative · Customization</div>
+              <h3 class="game-title">Build Your Dream Waffle</h3>
+            </div>
+            <p class="game-desc">
+              Step into the Just Wafflin' kitchen! Pile fresh strawberries, bananas, chocolate chips, and maple syrup onto your custom waffle.
+            </p>
+            <div class="game-meta">
+              <div class="difficulty-badge">
+                <span>Diff:</span>
+                <span class="stars">★☆☆</span>
+              </div>
+              <div class="personal-best">
+                Best: <span id="cardBestBuilder">0</span>
+              </div>
+            </div>
+            <button class="btn btn-primary" onclick="openGame('builder')" data-start="builder">
+              START CHEF
+            </button>
+          </div>
+        </div>
+
+        <!-- GAME 03: Syrup Catch Challenge -->
+        <div class="game-card">
+          <div class="game-thumb">
+            <span class="game-tag">REFLEX</span>
+            <div class="game-illustration">🍯</div>
+          </div>
+          <div class="game-content">
+            <div class="game-header">
+              <div class="game-genre">Fast Arcade · Reflex</div>
+              <h3 class="game-title">Syrup Catch Challenge</h3>
+            </div>
+            <p class="game-desc">
+              Move your waffle plate to catch falling amber syrup drops and butter cubes in 60 seconds while avoiding burnt toast!
+            </p>
+            <div class="game-meta">
+              <div class="difficulty-badge">
+                <span>Diff:</span>
+                <span class="stars">★★☆</span>
+              </div>
+              <div class="personal-best">
+                Best: <span id="cardBestCatch">0</span>
+              </div>
+            </div>
+            <button class="btn btn-primary" onclick="openGame('catch')" data-start="catch">
+              CATCH NOW
+            </button>
+          </div>
+        </div>
+
+        <!-- GAME 04: Morning Rush Order Dash -->
+        <div class="game-card">
+          <div class="game-thumb">
+            <span class="game-tag">RESTAURANT SIM</span>
+            <div class="game-illustration">☕</div>
+          </div>
+          <div class="game-content">
+            <div class="game-header">
+              <div class="game-genre">Time Management · Memory</div>
+              <h3 class="game-title">Morning Rush Order Dash</h3>
+            </div>
+            <p class="game-desc">
+              Breakfast rush hour is here! Fulfill customer waffle orders with speed and accuracy to earn big tips and top ratings.
+            </p>
+            <div class="game-meta">
+              <div class="difficulty-badge">
+                <span>Diff:</span>
+                <span class="stars">★★★</span>
+              </div>
+              <div class="personal-best">
+                Best: <span id="cardBestRush">0</span>
+              </div>
+            </div>
+            <button class="btn btn-primary" onclick="openGame('rush')" data-start="rush">
+              SERVE ORDERS
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Achievements Section -->
+    <section class="achievements-section">
+      <div class="section-heading">
+        <div>
+          <h2 class="section-title">BREAKFAST TROPHY CASE</h2>
+          <p class="section-subtitle">Unlock badges by conquering delicious milestones</p>
+        </div>
+      </div>
+      <div class="achievements-grid" id="achievementsList">
+        <!-- Dynamically rendered or pre-filled badges -->
+      </div>
+    </section>
+
+    <!-- Visit Just Wafflin' Restaurant Banner -->
+    <section class="visit-banner">
+      <div class="visit-text">
+        <h2 class="visit-heading">Craving The Real Thing?</h2>
+        <p class="visit-address">
+          📍 211 E McElroy Rd, Stillwater, OK 74075, USA
+        </p>
+        <p class="visit-tagline">
+          Fresh batter, golden irons, rich syrups, and savory breakfast treats cooked fresh daily in Stillwater!
+        </p>
+      </div>
+      <div class="visit-buttons">
+        <a href="https://www.justwafflin.com/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+          VISIT JUST WAFFLIN'
+        </a>
+        <a href="https://www.google.com/maps/dir/?api=1&destination=211+E+McElroy+Rd,+Stillwater,+OK+74075" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+          GET DIRECTIONS 🗺️
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-logo">JUST WAFFLIN'</div>
+    <div class="footer-location">211 E McElroy Rd, Stillwater, OK 74075 · Made for the love of waffles</div>
+    <div class="footer-disclaimer">
+      This Fun Zone is an interactive breakfast entertainment demo. Game scores are stored locally in your browser. All food creations in these mini-games are for playful simulator fun.
+    </div>
+  </footer>
+
+  <!-- ========================================== -->
+  <!-- GAME MODAL SHELL (Houses all 4 games)     -->
+  <!-- ========================================== -->
+  <div class="modal-overlay" id="gameModal" role="dialog" aria-modal="true">
+    <div class="game-container">
+  <!-- Universal Game Navbar -->
+      <div class="game-navbar">
+        <div class="game-nav-title" id="modalGameTitle">
+          <span>🥞</span> Waffle Stack Rush
+        </div>
+        <div class="game-controls-bar">
+          <button class="icon-btn" id="modalSoundBtn" title="Toggle Sound" aria-label="Toggle Sound">🔊</button>
+          <button class="icon-btn" id="modalPauseBtn" title="Pause Game" aria-label="Pause Game" onclick="togglePauseGame()">⏸️</button>
+          <button class="btn btn-secondary btn-sm" onclick="closeGameModal()" title="Back to Game Hub">
+            ✕ HUB
+          </button>
+        </div>
+      </div>
+
+      <!-- Viewport Wrapper -->
+      <div class="game-viewport" id="gameViewport">
+        <!-- Universal Pause Overlay -->
+        <div class="game-stage-screen" id="gamePauseScreen" style="display:none; z-index:90;">
+          <div class="stage-screen-inner">
+            <div class="stage-header">
+              <div class="stage-illustration">⏸️</div>
+              <h2 class="game-stage-title">Game Paused</h2>
+              <p class="game-stage-subtitle">Take a quick breakfast break! Ready when you are.</p>
+            </div>
+            <div class="stage-body">
+              <div class="result-stats-grid" id="pauseStatsGrid">
+                <div class="result-stat-box highlight">
+                  <div class="result-stat-val" id="pauseScoreVal">0</div>
+                  <div class="result-stat-lbl">Current Score</div>
+                </div>
+                <div class="result-stat-box">
+                  <div class="result-stat-val" id="pauseStatusVal">Ready</div>
+                  <div class="result-stat-lbl">Status</div>
+                </div>
+              </div>
+            </div>
+            <div class="stage-footer">
+              <button class="btn btn-primary btn-start-game" onclick="resumeCurrentGame()">
+                RESUME GAME ▶️
+              </button>
+              <div style="display:flex; gap:10px; width:100%;">
+                <button class="btn btn-secondary" style="flex:1;" onclick="restartCurrentGame()">
+                  🔄 RESTART
+                </button>
+                <button class="btn btn-secondary" style="flex:1;" onclick="closeGameModal()">
+                  🏠 GAME HUB
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- GAME 1: WAFFLE STACK RUSH DOM -->
+        <div id="game1Container" style="width:100%; height:100%; position:relative; display:none;">
+          <div class="hud-bar">
+            <div class="hud-pill">🥞 <span id="stackHeight">0</span> High</div>
+            <div class="hud-pill">⭐ <span id="stackScore">0</span></div>
+          </div>
+          <canvas id="stackCanvas"></canvas>
+          
+          <!-- Stack Controls for Touch / Click -->
+          <div class="stack-controls-footer">
+            <button class="btn btn-primary" id="stackDropBtn" style="width:100%; max-width:320px; height:52px; font-size:1.15rem; font-weight:800; box-shadow:var(--shadow-md);">
+              TAP TO DROP WAFFLE 🥞
+            </button>
+          </div>
+
+          <!-- Game 1 Start Overlay -->
+          <div class="game-stage-screen" id="stackStartScreen">
+            <div class="stage-screen-inner">
+              <div class="stage-header">
+                <div class="stage-illustration float-anim">🥞</div>
+                <h2 class="game-stage-title">Waffle Stack Rush</h2>
+                <p class="game-stage-subtitle">Build the tallest, most golden breakfast tower in Stillwater!</p>
+              </div>
+              <div class="stage-body">
+                <div class="game-instructions-box">
+                  <strong>How to Play:</strong>
+                  <ul>
+                    <li>Tap the button, screen, or press <strong>SPACE</strong> to drop each sliding waffle.</li>
+                    <li>Align it carefully! Any overhang is sliced away.</li>
+                    <li>Score <strong>PERFECT</strong> drops to keep your tower wide & earn bonus combos!</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="stage-footer">
+                <button class="btn btn-primary btn-start-game" onclick="StackGame.start()" data-start="true">
+                  START STACKING 🥞
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Game 1 Over Overlay -->
+          <div class="game-stage-screen" id="stackOverScreen" style="display:none;">
+            <div class="stage-screen-inner">
+              <div class="stage-header">
+                <div class="stage-illustration">🥞💥</div>
+                <h2 class="game-stage-title">Tower Toppled!</h2>
+                <p class="game-stage-subtitle" id="stackOverMessage">A valiant stacking effort!</p>
+              </div>
+              <div class="stage-body">
+                <div class="result-stats-grid">
+                  <div class="result-stat-box highlight">
+                    <div class="result-stat-val" id="stackOverHeight">0</div>
+                    <div class="result-stat-lbl">Waffles Stacked</div>
+                  </div>
+                  <div class="result-stat-box">
+                    <div class="result-stat-val" id="stackOverScore">0</div>
+                    <div class="result-stat-lbl">Final Score</div>
+                  </div>
+                </div>
+              </div>
+              <div class="stage-footer">
+                <button class="btn btn-primary btn-start-game" onclick="StackGame.start()" data-start="true">
+                  PLAY AGAIN 🔄
+                </button>
+                <button class="btn btn-secondary" style="width:100%; height:46px;" onclick="closeGameModal()">
+                  GAME HUB 🏠
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- GAME 2: BUILD YOUR DREAM WAFFLE DOM -->
+        <div id="game2Container" style="width:100%; height:100%; display:none;" class="builder-layout">
+          <!-- Plate Canvas Stage -->
+          <div class="builder-plate-stage">
+            <canvas id="wafflePlateCanvas" width="280" height="280"></canvas>
+            <div style="position:absolute; top:8px; left:10px; font-size:0.75rem; font-weight:700; color:#78350F; background:rgba(255,255,255,0.9); padding:3px 8px; border-radius:8px; border:1px solid var(--border-warm);">
+              Toppings: <span id="toppingCounter">0</span>
+            </div>
+            <div style="position:absolute; top:8px; right:10px; font-size:0.75rem; font-weight:700; color:#D97706; background:rgba(255,255,255,0.9); padding:3px 8px; border-radius:8px; border:1px solid var(--border-warm);" id="creationRatingTag">
+              Fresh Batter
+            </div>
+          </div>
+
+          <!-- Toppings & Plate Palette Controls -->
+          <div class="builder-controls">
+            <!-- Plate Style -->
+            <div style="display:flex; align-items:center; justify-content:space-between; flex-shrink:0;">
+              <span style="font-size:0.75rem; font-weight:700; color:#78350F;">PLATE STYLE:</span>
+              <div class="plate-styles-row">
+                <button class="plate-chip active" onclick="WaffleBuilder.setPlate('porcelain')">Porcelain</button>
+                <button class="plate-chip" onclick="WaffleBuilder.setPlate('diner')">Red Diner</button>
+                <button class="plate-chip" onclick="WaffleBuilder.setPlate('slate')">Slate</button>
+                <button class="plate-chip" onclick="WaffleBuilder.setPlate('gold')">Golden</button>
+              </div>
+            </div>
+
+            <!-- Recipe Challenge -->
+            <div style="background:#FEF3C7; border:1px solid #F59E0B; border-radius:10px; padding:6px 10px; font-size:0.78rem; display:flex; justify-content:space-between; align-items:center; flex-shrink:0;">
+              <div style="line-height:1.2;"><strong>Chef Goal:</strong> <span id="builderChallengeGoal">Stillwater Sunrise (Strawberries + Butter + Syrup)</span></div>
+              <button class="btn btn-secondary btn-sm" style="padding:2px 8px; font-size:0.7rem; flex-shrink:0;" onclick="WaffleBuilder.newChallenge()">New Goal</button>
+            </div>
+
+            <!-- Topping Buttons Grid -->
+            <div style="flex-shrink:0;">
+              <div class="topping-category-title">
+                <span>SELECT & TAP TO ADD TOPPING:</span>
+                <span style="font-size:0.72rem; color:#B45309;">(Or tap plate directly)</span>
+              </div>
+              <div class="toppings-grid" style="margin-top:4px;">
+                <button class="topping-btn" onclick="WaffleBuilder.addTopping('strawberry')">
+                  <span class="topping-emoji">🍓</span>
+                  <span>Berry</span>
+                </button>
+                <button class="topping-btn" onclick="WaffleBuilder.addTopping('banana')">
+                  <span class="topping-emoji">🍌</span>
+                  <span>Banana</span>
+                </button>
+                <button class="topping-btn" onclick="WaffleBuilder.addTopping('blueberry')">
+                  <span class="topping-emoji">🫐</span>
+                  <span>Blueberry</span>
+                </button>
+                <button class="topping-btn" onclick="WaffleBuilder.addTopping('choco')">
+                  <span class="topping-emoji">🍫</span>
+                  <span>Choco</span>
+                </button>
+                <button class="topping-btn" onclick="WaffleBuilder.addTopping('cream')">
+                  <span class="topping-emoji">🍦</span>
+                  <span>Cream</span>
+                </button>
+                <button class="topping-btn" onclick="WaffleBuilder.addTopping('syrup')">
+                  <span class="topping-emoji">🍯</span>
+                  <span>Syrup</span>
+                </button>
+                <button class="topping-btn" onclick="WaffleBuilder.addTopping('butter')">
+                  <span class="topping-emoji">🧈</span>
+                  <span>Butter</span>
+                </button>
+                <button class="topping-btn" onclick="WaffleBuilder.addTopping('pecan')">
+                  <span class="topping-emoji">🥜</span>
+                  <span>Pecan</span>
+                </button>
+                <button class="topping-btn" onclick="WaffleBuilder.addTopping('bacon')">
+                  <span class="topping-emoji">🥓</span>
+                  <span>Bacon</span>
+                </button>
+                <button class="topping-btn" onclick="WaffleBuilder.addTopping('sprinkles')">
+                  <span class="topping-emoji">✨</span>
+                  <span>Sprinkle</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Builder Action Buttons (Always Pinned) -->
+            <div class="builder-action-footer">
+              <button class="btn btn-secondary btn-sm" onclick="WaffleBuilder.undo()" style="flex:1; height:44px;">
+                ↩ Undo
+              </button>
+              <button class="btn btn-secondary btn-sm" onclick="WaffleBuilder.clearAll()" style="flex:1; height:44px;">
+                🗑️ Clear
+              </button>
+              <button class="btn btn-primary" onclick="WaffleBuilder.showMasterpiece()" style="flex:2; height:44px; font-weight:800;">
+                FINISH & PLATE! ⭐
+              </button>
+            </div>
+          </div>
+
+          <!-- Masterpiece Showcase Screen -->
+          <div class="game-stage-screen" id="builderShowcaseScreen" style="display:none;">
+            <div class="stage-screen-inner">
+              <div class="stage-header">
+                <div class="stage-illustration">🎉🧇</div>
+                <h2 class="game-stage-title" id="masterpieceTitle">Your Waffle Masterpiece!</h2>
+                <p class="game-stage-subtitle" id="masterpieceDesc">Artisan culinary creation ready for breakfast royalty.</p>
+              </div>
+              <div class="stage-body">
+                <div style="display:flex; justify-content:center; margin-bottom:12px;">
+                  <div id="masterpieceImgContainer" style="border:3px solid var(--syrup-dark); border-radius:50%; width:160px; height:160px; overflow:hidden; box-shadow:var(--shadow-md);">
+                    <img id="masterpieceImg" src="" alt="Your Waffle Creation" style="width:100%; height:100%; object-fit:cover;" />
+                  </div>
+                </div>
+                <div class="result-stats-grid">
+                  <div class="result-stat-box highlight">
+                    <div class="result-stat-val" id="masterpieceScore">0</div>
+                    <div class="result-stat-lbl">Creativity Score</div>
+                  </div>
+                  <div class="result-stat-box">
+                    <div class="result-stat-val" id="masterpieceRating">5.0 ★</div>
+                    <div class="result-stat-lbl">Chef Rating</div>
+                  </div>
+                </div>
+              </div>
+              <div class="stage-footer">
+                <button class="btn btn-primary btn-start-game" onclick="WaffleBuilder.shareCreation()">
+                  SHARE MY WAFFLE 📢
+                </button>
+                <div style="display:flex; gap:10px; width:100%;">
+                  <button class="btn btn-secondary" style="flex:1; height:44px;" onclick="WaffleBuilder.reset()">
+                    BUILD ANOTHER 🧇
+                  </button>
+                  <button class="btn btn-secondary" style="flex:1; height:44px;" onclick="closeGameModal()">
+                    GAME HUB 🏠
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- GAME 3: SYRUP CATCH CHALLENGE DOM -->
+        <div id="game3Container" style="width:100%; height:100%; position:relative; display:none;">
+          <div class="hud-bar">
+            <div class="hud-pill">⏱️ <span id="catchTimer">60</span>s</div>
+            <div class="hud-pill">❤️ <span id="catchLives">❤️❤️❤️</span></div>
+            <div class="hud-pill">⭐ <span id="catchScore">0</span></div>
+          </div>
+          <canvas id="catchCanvas"></canvas>
+
+          <!-- Game 3 Start Overlay -->
+          <div class="game-stage-screen" id="catchStartScreen">
+            <div class="stage-screen-inner">
+              <div class="stage-header">
+                <div class="stage-illustration float-anim">🍯</div>
+                <h2 class="game-stage-title">Syrup Catch Challenge</h2>
+                <p class="game-stage-subtitle">Catch amber syrup drops & fresh fruit before time runs out!</p>
+              </div>
+              <div class="stage-body">
+                <div class="game-instructions-box">
+                  <strong>How to Play:</strong>
+                  <ul>
+                    <li>Slide your finger, mouse, or press <strong>A/D</strong> or <strong>Arrow Keys</strong> to move the plate.</li>
+                    <li>Catch amber syrup (+10), berries (+20), butter (+30), and gold coins (+50 Frenzy!).</li>
+                    <li>Watch out for burnt toast and bombs! Catching hazards costs a heart.</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="stage-footer">
+                <button class="btn btn-primary btn-start-game" onclick="CatchGame.start()" data-start="true">
+                  START CATCHING 🍯
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Game 3 Over Overlay -->
+          <div class="game-stage-screen" id="catchOverScreen" style="display:none;">
+            <div class="stage-screen-inner">
+              <div class="stage-header">
+                <div class="stage-illustration" id="catchOverEmoji">🍯✨</div>
+                <h2 class="game-stage-title" id="catchOverTitle">Time's Up!</h2>
+                <p class="game-stage-subtitle" id="catchOverMessage">Great reflex work in the breakfast kitchen!</p>
+              </div>
+              <div class="stage-body">
+                <div class="result-stats-grid">
+                  <div class="result-stat-box highlight">
+                    <div class="result-stat-val" id="catchOverScore">0</div>
+                    <div class="result-stat-lbl">Final Score</div>
+                  </div>
+                  <div class="result-stat-box">
+                    <div class="result-stat-val" id="catchOverOz">0 oz</div>
+                    <div class="result-stat-lbl">Syrup Collected</div>
+                  </div>
+                </div>
+              </div>
+              <div class="stage-footer">
+                <button class="btn btn-primary btn-start-game" onclick="CatchGame.start()" data-start="true">
+                  PLAY AGAIN 🔄
+                </button>
+                <button class="btn btn-secondary" style="width:100%; height:46px;" onclick="closeGameModal()">
+                  GAME HUB 🏠
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- GAME 4: MORNING RUSH ORDER DASH DOM -->
+        <div id="game4Container" style="width:100%; height:100%; display:none;" class="rush-layout">
+          <!-- Rush Header / Customer Station -->
+          <div class="rush-counter">
+            <div class="customer-avatar" id="rushCustomerAvatar">🤠</div>
+            <div class="order-ticket">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <strong id="rushCustomerName" style="color:var(--syrup-dark); font-size:0.85rem;">Stillwater Pete</strong>
+                <span id="rushTimerBadge" style="font-family:var(--font-display); font-weight:700; color:#DC2626;">⏱️ 16s</span>
+              </div>
+              <div class="order-recipe-list" id="rushOrderList">
+                <!-- Badges of current customer request -->
+              </div>
+            </div>
+            <div style="display:flex; flex-direction:column; align-items:center; gap:1px; flex-shrink:0;">
+              <div style="font-family:var(--font-display); font-size:1rem; font-weight:700; color:var(--syrup-dark);" id="rushOrdersCount">0/5</div>
+              <div style="font-size:0.6rem; font-weight:700; color:#78350F;">ORDERS</div>
+            </div>
+          </div>
+
+          <!-- Prep Station with 4 categories -->
+          <div class="prep-station">
+            <!-- 1. Waffle Base -->
+            <div class="prep-category">
+              <div class="prep-category-title">1. CHOOSE WAFFLE BASE</div>
+              <div class="prep-items-row" id="prepBaseRow">
+                <button class="prep-item-btn" onclick="RushGame.selectItem('base', 'Belgian Waffle')">
+                  <span>🧇</span><span>Belgian</span>
+                </button>
+                <button class="prep-item-btn" onclick="RushGame.selectItem('base', 'Choco Waffle')">
+                  <span>🍫</span><span>Choco</span>
+                </button>
+                <button class="prep-item-btn" onclick="RushGame.selectItem('base', 'Chicken & Waffle')">
+                  <span>🍗</span><span>Chicken</span>
+                </button>
+                <button class="prep-item-btn" onclick="RushGame.selectItem('base', 'Pecan Waffle')">
+                  <span>🥜</span><span>Pecan</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- 2. Topping -->
+            <div class="prep-category">
+              <div class="prep-category-title">2. CHOOSE TOPPING</div>
+              <div class="prep-items-row" id="prepToppingRow">
+                <button class="prep-item-btn" onclick="RushGame.selectItem('topping', 'Strawberries')">
+                  <span>🍓</span><span>Strawberry</span>
+                </button>
+                <button class="prep-item-btn" onclick="RushGame.selectItem('topping', 'Blueberries')">
+                  <span>🫐</span><span>Blueberry</span>
+                </button>
+                <button class="prep-item-btn" onclick="RushGame.selectItem('topping', 'Banana Butter')">
+                  <span>🍌</span><span>Banana</span>
+                </button>
+                <button class="prep-item-btn" onclick="RushGame.selectItem('topping', 'Whipped Cream')">
+                  <span>🍦</span><span>Cream</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- 3. Side -->
+            <div class="prep-category">
+              <div class="prep-category-title">3. CHOOSE SIDE</div>
+              <div class="prep-items-row" id="prepSideRow">
+                <button class="prep-item-btn" onclick="RushGame.selectItem('side', 'Crispy Bacon')">
+                  <span>🥓</span><span>Bacon</span>
+                </button>
+                <button class="prep-item-btn" onclick="RushGame.selectItem('side', 'Fluffy Eggs')">
+                  <span>🍳</span><span>Eggs</span>
+                </button>
+                <button class="prep-item-btn" onclick="RushGame.selectItem('side', 'Hash Browns')">
+                  <span>🥔</span><span>Hashbrown</span>
+                </button>
+                <button class="prep-item-btn" onclick="RushGame.selectItem('side', 'Extra Butter')">
+                  <span>🧈</span><span>Butter</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- 4. Drink -->
+            <div class="prep-category">
+              <div class="prep-category-title">4. CHOOSE DRINK</div>
+              <div class="prep-items-row" id="prepDrinkRow">
+                <button class="prep-item-btn" onclick="RushGame.selectItem('drink', 'Stillwater Coffee')">
+                  <span>☕</span><span>Coffee</span>
+                </button>
+                <button class="prep-item-btn" onclick="RushGame.selectItem('drink', 'Fresh OJ')">
+                  <span>🍊</span><span>OJ</span>
+                </button>
+                <button class="prep-item-btn" onclick="RushGame.selectItem('drink', 'Sweet Iced Tea')">
+                  <span>🧋</span><span>Sweet Tea</span>
+                </button>
+                <button class="prep-item-btn" onclick="RushGame.selectItem('drink', 'Whole Milk')">
+                  <span>🥛</span><span>Milk</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Serving Tray (Always Pinned) -->
+          <div class="tray-bar">
+            <div class="current-tray">
+              <div class="tray-slot" id="trayBase" title="Base">❓</div>
+              <div class="tray-slot" id="trayTopping" title="Topping">❓</div>
+              <div class="tray-slot" id="traySide" title="Side">❓</div>
+              <div class="tray-slot" id="trayDrink" title="Drink">❓</div>
+            </div>
+            <button class="btn btn-primary" onclick="RushGame.serveOrder()" id="serveBtn" style="height:48px; font-weight:800;">
+              RING BELL & SERVE 🔔
+            </button>
+          </div>
+
+          <!-- Game 4 Start Overlay -->
+          <div class="game-stage-screen" id="rushStartScreen">
+            <div class="stage-screen-inner">
+              <div class="stage-header">
+                <div class="stage-illustration float-anim">☕🧇</div>
+                <h2 class="game-stage-title">Morning Rush Order Dash</h2>
+                <p class="game-stage-subtitle">The morning crowd is at the counter! Prepare every custom breakfast ticket with speed & precision.</p>
+              </div>
+              <div class="stage-body">
+                <div class="game-instructions-box">
+                  <strong>How to Play:</strong>
+                  <ul>
+                    <li>Look at each customer's ticket (Base, Topping, Side & Drink).</li>
+                    <li>Tap each ingredient in the prep station to place it on the tray.</li>
+                    <li>Tap <strong>RING BELL & SERVE</strong> before the timer runs out!</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="stage-footer">
+                <button class="btn btn-primary btn-start-game" onclick="RushGame.start()" data-start="true">
+                  START SHIFT ☕
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Game 4 Over Overlay -->
+          <div class="game-stage-screen" id="rushOverScreen" style="display:none;">
+            <div class="stage-screen-inner">
+              <div class="stage-header">
+                <div class="stage-illustration">🛎️💵</div>
+                <h2 class="game-stage-title">Shift Complete!</h2>
+                <p class="game-stage-subtitle" id="rushOverMessage">Superb server performance during peak hours!</p>
+              </div>
+              <div class="stage-body">
+                <div class="result-stats-grid">
+                  <div class="result-stat-box highlight">
+                    <div class="result-stat-val" id="rushOverTips">$0.00</div>
+                    <div class="result-stat-lbl">Tips Earned</div>
+                  </div>
+                  <div class="result-stat-box">
+                    <div class="result-stat-val" id="rushOverAccuracy">0%</div>
+                    <div class="result-stat-lbl">Order Accuracy</div>
+                  </div>
+                </div>
+              </div>
+              <div class="stage-footer">
+                <button class="btn btn-primary btn-start-game" onclick="RushGame.start()" data-start="true">
+                  ANOTHER SHIFT 🔄
+                </button>
+                <button class="btn btn-secondary" style="width:100%; height:46px;" onclick="closeGameModal()">
+                  GAME HUB 🏠
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Nickname Editor Modal -->
+  <div class="modal-overlay" id="nicknameModal">
+    <div class="nickname-modal-box">
+      <div style="font-size:2.8rem;">🧇</div>
+      <h3 style="font-family:var(--font-display); font-size:1.4rem; color:var(--syrup-dark); margin-top:8px;">Choose Your Nickname</h3>
+      <p style="font-size:0.85rem; color:#78350F;">Personalize your local high scores and chef profile.</p>
+      <input type="text" id="nicknameInput" class="nickname-input" maxlength="15" placeholder="e.g. WaffleKing" />
+      <div style="display:flex; gap:10px; justify-content:center;">
+        <button class="btn btn-primary" onclick="saveNickname()">SAVE NICKNAME</button>
+        <button class="btn btn-secondary" onclick="closeNicknameModal()">CANCEL</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notification Toast -->
+  <div id="toastNotification" style="position:fixed; bottom:20px; right:20px; background:#451A03; color:#FFFFFF; border:2px solid #F59E0B; border-radius:14px; padding:12px 18px; font-family:var(--font-display); font-size:0.95rem; display:none; align-items:center; gap:8px; box-shadow:var(--shadow-lg); z-index:200;">
+    <span id="toastIcon">✨</span>
+    <span id="toastMsg">Badge Unlocked!</span>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- VANILLA JAVASCRIPT GAME LOGIC & SOUND ENGINE -->
+  <!-- ========================================== -->
+  <script>
+    /* =======================================================
+       1. SOUND ENGINE (100% Procedural Web Audio API Synthesizer)
+       ======================================================= */
+    const SoundEngine = {
+      ctx: null,
+      enabled: true,
+
+      init() {
+        if (!this.ctx) {
+          const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+          if (AudioContextClass) {
+            this.ctx = new AudioContextClass();
+          }
+        }
+        if (this.ctx && this.ctx.state === 'suspended') {
+          this.ctx.resume();
+        }
+      },
+
+      toggle() {
+        this.enabled = !this.enabled;
+        const icon = document.getElementById('soundIcon');
+        const modalBtn = document.getElementById('modalSoundBtn');
+        if (icon) icon.textContent = this.enabled ? '🔊' : '🔇';
+        if (modalBtn) modalBtn.textContent = this.enabled ? '🔊' : '🔇';
+        localStorage.setItem('jw_sound_enabled', this.enabled ? '1' : '0');
+        if (this.enabled) {
+          this.playClick();
+        }
+      },
+
+      playTone(freq, type = 'sine', duration = 0.15, gainVal = 0.2) {
+        if (!this.enabled) return;
+        this.init();
+        if (!this.ctx) return;
+        try {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = type;
+          osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
+          gain.gain.setValueAtTime(gainVal, this.ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + duration);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start();
+          osc.stop(this.ctx.currentTime + duration);
+        } catch (e) {
+          // Silent fallback
+        }
+      },
+
+      playClick() {
+        this.playTone(480, 'triangle', 0.08, 0.15);
+      },
+
+      playDrop() {
+        if (!this.enabled) return;
+        this.init();
+        if (!this.ctx) return;
+        try {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(180, this.ctx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(60, this.ctx.currentTime + 0.12);
+          gain.gain.setValueAtTime(0.25, this.ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.12);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start();
+          osc.stop(this.ctx.currentTime + 0.13);
+        } catch (e) {}
+      },
+
+      playPerfect() {
+        if (!this.enabled) return;
+        this.init();
+        const chords = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6 arpeggio
+        chords.forEach((freq, idx) => {
+          setTimeout(() => {
+            this.playTone(freq, 'sine', 0.2, 0.18);
+          }, idx * 45);
+        });
+      },
+
+      playCatch() {
+        if (!this.enabled) return;
+        this.init();
+        if (!this.ctx) return;
+        try {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(587.33, this.ctx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(880, this.ctx.currentTime + 0.1);
+          gain.gain.setValueAtTime(0.18, this.ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.1);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start();
+          osc.stop(this.ctx.currentTime + 0.11);
+        } catch (e) {}
+      },
+
+      playGolden() {
+        if (!this.enabled) return;
+        this.init();
+        [880, 1108.73, 1318.51, 1760].forEach((freq, i) => {
+          setTimeout(() => this.playTone(freq, 'sine', 0.25, 0.15), i * 50);
+        });
+      },
+
+      playBell() {
+        if (!this.enabled) return;
+        this.init();
+        this.playTone(1800, 'triangle', 0.4, 0.25);
+        setTimeout(() => this.playTone(2400, 'sine', 0.35, 0.15), 30);
+      },
+
+      playHurt() {
+        if (!this.enabled) return;
+        this.init();
+        if (!this.ctx) return;
+        try {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(140, this.ctx.currentTime);
+          osc.frequency.linearRampToValueAtTime(70, this.ctx.currentTime + 0.2);
+          gain.gain.setValueAtTime(0.2, this.ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.2);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start();
+          osc.stop(this.ctx.currentTime + 0.21);
+        } catch (e) {}
+      },
+
+      playCollapse() {
+        if (!this.enabled) return;
+        this.init();
+        this.playTone(160, 'sawtooth', 0.35, 0.3);
+        setTimeout(() => this.playTone(90, 'sawtooth', 0.4, 0.25), 100);
+      },
+
+      playFanfare() {
+        if (!this.enabled) return;
+        this.init();
+        const fanfareNotes = [
+          { f: 523.25, d: 0.12 },
+          { f: 659.25, d: 0.12 },
+          { f: 783.99, d: 0.12 },
+          { f: 1046.50, d: 0.35 }
+        ];
+        fanfareNotes.forEach((note, i) => {
+          setTimeout(() => this.playTone(note.f, 'triangle', note.d, 0.22), i * 110);
+        });
+      }
+    };
+
+    /* =======================================================
+       2. USER PROFILE, STORAGE & ACHIEVEMENTS MANAGER
+       ======================================================= */
+    const Storage = {
+      data: {
+        nickname: 'WaffleHero',
+        bestStack: 0,
+        bestBuilder: 0,
+        bestCatch: 0,
+        bestRush: 0,
+        gamesPlayed: 0,
+        totalScore: 0,
+        achievements: {
+          rookie: false,
+          stackMaster: false,
+          masterPlater: false,
+          syrupVirtuoso: false,
+          rushHero: false,
+          champion: false
+        },
+        dailyCompletedDate: ''
+      },
+
+      init() {
+        const saved = localStorage.getItem('jw_funzone_data');
+        if (saved) {
+          try {
+            this.data = { ...this.data, ...JSON.parse(saved) };
+          } catch (e) {}
+        }
+        const snd = localStorage.getItem('jw_sound_enabled');
+        if (snd !== null) {
+          SoundEngine.enabled = snd === '1';
+        }
+        this.updateUI();
+      },
+
+      save() {
+        localStorage.setItem('jw_funzone_data', JSON.stringify(this.data));
+        this.updateUI();
+      },
+
+      recordGame(gameId, score) {
+        this.data.gamesPlayed++;
+        if (gameId === 'stack' && score > this.data.bestStack) this.data.bestStack = score;
+        if (gameId === 'builder' && score > this.data.bestBuilder) this.data.bestBuilder = score;
+        if (gameId === 'catch' && score > this.data.bestCatch) this.data.bestCatch = score;
+        if (gameId === 'rush' && score > this.data.bestRush) this.data.bestRush = score;
+
+        this.data.totalScore = this.data.bestStack + this.data.bestBuilder + this.data.bestCatch + this.data.bestRush;
+
+        // Check rookie achievement
+        this.unlockAchievement('rookie');
+
+        if (this.data.totalScore >= 1000) {
+          this.unlockAchievement('champion');
+        }
+
+        this.save();
+      },
+
+      unlockAchievement(id) {
+        if (!this.data.achievements[id]) {
+          this.data.achievements[id] = true;
+          this.save();
+          showToast('Achievement Unlocked: ' + getAchievementTitle(id), '🎖️');
+          SoundEngine.playFanfare();
+        }
+      },
+
+      updateUI() {
+        document.getElementById('navNickname').textContent = this.data.nickname;
+        document.getElementById('navTotalScore').textContent = this.data.totalScore + ' pts';
+        document.getElementById('hubBestScore').textContent = this.data.totalScore;
+        document.getElementById('hubGamesPlayed').textContent = this.data.gamesPlayed;
+
+        document.getElementById('cardBestStack').textContent = this.data.bestStack;
+        document.getElementById('cardBestBuilder').textContent = this.data.bestBuilder;
+        document.getElementById('cardBestCatch').textContent = this.data.bestCatch;
+        document.getElementById('cardBestRush').textContent = this.data.bestRush;
+
+        // Render Achievements
+        const unlockedCount = Object.values(this.data.achievements).filter(Boolean).length;
+        document.getElementById('hubBadgesCount').textContent = `${unlockedCount} / 6`;
+        renderAchievements();
+      }
+    };
+
+    const achievementsConfig = [
+      { id: 'rookie', name: 'Waffle Rookie', desc: 'Played your first game', icon: '🧇' },
+      { id: 'stackMaster', name: 'Stack Master', desc: 'Reach 12+ layers in Stack Rush', icon: '🥞' },
+      { id: 'masterPlater', name: 'Waffle Artist', desc: 'Add 6+ toppings to your dream waffle', icon: '🎨' },
+      { id: 'syrupVirtuoso', name: 'Syrup Catcher', desc: 'Catch 30 items in Syrup Catch', icon: '🍯' },
+      { id: 'rushHero', name: 'Rush Hour Hero', desc: 'Serve 5 rush orders in a row', icon: '⚡' },
+      { id: 'champion', name: 'Breakfast Legend', desc: 'Earn 1,000+ total Hub Points', icon: '👑' }
+    ];
+
+    function getAchievementTitle(id) {
+      const a = achievementsConfig.find(item => item.id === id);
+      return a ? a.name : 'New Badge';
+    }
+
+    function renderAchievements() {
+      const container = document.getElementById('achievementsList');
+      if (!container) return;
+      container.innerHTML = achievementsConfig.map(ach => {
+        const isUnlocked = Storage.data.achievements[ach.id];
+        return `
+          <div class="achievement-card ${isUnlocked ? 'unlocked' : ''}">
+            <div class="achievement-icon">${ach.icon}</div>
+            <div class="achievement-details">
+              <div class="achievement-name">${ach.name}</div>
+              <div class="achievement-desc">${ach.desc}</div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function showToast(msg, icon = '✨') {
+      const toast = document.getElementById('toastNotification');
+      document.getElementById('toastMsg').textContent = msg;
+      document.getElementById('toastIcon').textContent = icon;
+      toast.style.display = 'flex';
+      setTimeout(() => {
+        toast.style.display = 'none';
+      }, 3500);
+    }
+
+    /* Nickname Dialog */
+    document.getElementById('profilePill').addEventListener('click', () => {
+      document.getElementById('nicknameInput').value = Storage.data.nickname;
+      document.getElementById('nicknameModal').classList.add('active');
+    });
+
+    function closeNicknameModal() {
+      document.getElementById('nicknameModal').classList.remove('active');
+    }
+
+    function saveNickname() {
+      const val = document.getElementById('nicknameInput').value.trim();
+      if (val) {
+        Storage.data.nickname = val;
+        Storage.save();
+        closeNicknameModal();
+        showToast('Chef nickname saved!', '🧇');
+      }
+    }
+
+    /* Sound Toggle Bindings */
+    document.getElementById('soundToggle').addEventListener('click', () => SoundEngine.toggle());
+    document.getElementById('modalSoundBtn').addEventListener('click', () => SoundEngine.toggle());
+
+    /* =======================================================
+       3. MODAL SHELL CONTROLLER & PAUSE SYSTEM
+       ======================================================= */
+    let currentGame = null;
+    let isPaused = false;
+
+    function togglePauseGame() {
+      if (!currentGame) return;
+      if (isPaused) {
+        resumeCurrentGame();
+      } else {
+        pauseCurrentGame();
+      }
+    }
+
+    function pauseCurrentGame() {
+      if (!currentGame || isPaused) return;
+
+      let isRunning = false;
+      let curScore = 0;
+      if (currentGame === 'stack') {
+        isRunning = StackGame.running;
+        curScore = StackGame.score;
+      } else if (currentGame === 'catch') {
+        isRunning = CatchGame.running;
+        curScore = CatchGame.score;
+      } else if (currentGame === 'rush') {
+        isRunning = RushGame.running;
+        curScore = Math.round(RushGame.tipsEarned * 50);
+      } else if (currentGame === 'builder') {
+        isRunning = true;
+        curScore = WaffleBuilder.toppings.length * 50;
+      }
+
+      if (!isRunning) return;
+
+      isPaused = true;
+      SoundEngine.playClick();
+      document.getElementById('modalPauseBtn').textContent = '▶️';
+      document.getElementById('modalPauseBtn').title = 'Resume Game';
+      document.getElementById('pauseScoreVal').textContent = curScore;
+      document.getElementById('pauseStatusVal').textContent = 'Paused';
+      document.getElementById('gamePauseScreen').style.display = 'flex';
+    }
+
+    function resumeCurrentGame() {
+      if (!isPaused) return;
+      isPaused = false;
+      SoundEngine.playClick();
+      document.getElementById('modalPauseBtn').textContent = '⏸️';
+      document.getElementById('modalPauseBtn').title = 'Pause Game';
+      document.getElementById('gamePauseScreen').style.display = 'none';
+
+      if (currentGame === 'stack' && StackGame.running) {
+        StackGame.animId = requestAnimationFrame(() => StackGame.loop());
+      } else if (currentGame === 'catch' && CatchGame.running) {
+        CatchGame.animId = requestAnimationFrame(() => CatchGame.loop());
+      }
+    }
+
+    function restartCurrentGame() {
+      resumeCurrentGame();
+      if (currentGame === 'stack') StackGame.start();
+      else if (currentGame === 'catch') CatchGame.start();
+      else if (currentGame === 'rush') RushGame.start();
+      else if (currentGame === 'builder') WaffleBuilder.reset();
+    }
+
+    // Keyboard support: Escape or KeyP for Pause
+    window.addEventListener('keydown', (e) => {
+      if (e.code === 'KeyP' || (e.code === 'Escape' && isPaused)) {
+        if (currentGame) {
+          e.preventDefault();
+          togglePauseGame();
+        }
+      }
+    });
+
+    function openGame(gameId) {
+      SoundEngine.init();
+      SoundEngine.playClick();
+      currentGame = gameId;
+      isPaused = false;
+      document.getElementById('modalPauseBtn').textContent = '⏸️';
+      document.getElementById('gamePauseScreen').style.display = 'none';
+
+      const modal = document.getElementById('gameModal');
+      modal.classList.add('active');
+
+      // Hide all game containers
+      document.getElementById('game1Container').style.display = 'none';
+      document.getElementById('game2Container').style.display = 'none';
+      document.getElementById('game3Container').style.display = 'none';
+      document.getElementById('game4Container').style.display = 'none';
+
+      const titleEl = document.getElementById('modalGameTitle');
+
+      if (gameId === 'stack') {
+        titleEl.innerHTML = '<span>🥞</span> Waffle Stack Rush';
+        document.getElementById('game1Container').style.display = 'block';
+        StackGame.init();
+      } else if (gameId === 'builder') {
+        titleEl.innerHTML = '<span>🍓</span> Build Your Dream Waffle';
+        document.getElementById('game2Container').style.display = 'flex';
+        WaffleBuilder.init();
+      } else if (gameId === 'catch') {
+        titleEl.innerHTML = '<span>🍯</span> Syrup Catch Challenge';
+        document.getElementById('game3Container').style.display = 'block';
+        CatchGame.init();
+      } else if (gameId === 'rush') {
+        titleEl.innerHTML = '<span>☕</span> Morning Rush Order Dash';
+        document.getElementById('game4Container').style.display = 'flex';
+        RushGame.init();
+      }
+    }
+
+    function closeGameModal() {
+      SoundEngine.playClick();
+      isPaused = false;
+      document.getElementById('gamePauseScreen').style.display = 'none';
+      if (StackGame.running) StackGame.stop();
+      if (CatchGame.running) CatchGame.stop();
+      if (RushGame.running) RushGame.stop();
+      currentGame = null;
+      document.getElementById('gameModal').classList.remove('active');
+      Storage.updateUI();
+    }
+
+    /* =======================================================
+       GAME 01: WAFFLE STACK RUSH
+       ======================================================= */
+    const StackGame = {
+      canvas: null,
+      ctx: null,
+      running: false,
+      stack: [],
+      currentLayer: null,
+      fallingPieces: [],
+      particles: [],
+      height: 0,
+      score: 0,
+      combo: 0,
+      cameraY: 0,
+      animId: null,
+      width: 360,
+      heightPx: 480,
+
+      init() {
+        this.canvas = document.getElementById('stackCanvas');
+        this.ctx = this.canvas.getContext('2d');
+        this.resize();
+        window.addEventListener('resize', () => { if (currentGame === 'stack') this.resize(); });
+
+        document.getElementById('stackStartScreen').style.display = 'flex';
+        document.getElementById('stackOverScreen').style.display = 'none';
+        document.getElementById('stackScore').textContent = '0';
+        document.getElementById('stackHeight').textContent = '0';
+
+        // Bind drop button
+        const dropBtn = document.getElementById('stackDropBtn');
+        dropBtn.onclick = (e) => {
+          e.preventDefault();
+          this.drop();
+        };
+
+        // Pointerdown / Tap directly on canvas
+        this.canvas.onpointerdown = (e) => {
+          if (this.running && !isPaused) {
+            e.preventDefault();
+            this.drop();
+          }
+        };
+
+        // Prevent touch dragging / pull-to-refresh on canvas
+        this.canvas.addEventListener('touchstart', (e) => {
+          if (this.running) e.preventDefault();
+        }, { passive: false });
+
+        // Keyboard Space / Tap
+        window.onkeydown = (e) => {
+          if (currentGame === 'stack' && (e.code === 'Space' || e.code === 'ArrowDown')) {
+            e.preventDefault();
+            this.drop();
+          }
+        };
+      },
+
+      resize() {
+        const container = document.getElementById('game1Container');
+        const w = container.clientWidth || 360;
+        const h = container.clientHeight || 480;
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        this.width = w;
+        this.heightPx = h;
+        this.canvas.width = Math.floor(w * dpr);
+        this.canvas.height = Math.floor(h * dpr);
+        this.canvas.style.width = w + 'px';
+        this.canvas.style.height = h + 'px';
+        this.ctx.resetTransform();
+        this.ctx.scale(dpr, dpr);
+      },
+
+      start() {
+        SoundEngine.playClick();
+        this.resize();
+        this.running = true;
+        this.stack = [];
+        this.fallingPieces = [];
+        this.particles = [];
+        this.height = 0;
+        this.score = 0;
+        this.combo = 0;
+        this.cameraY = 0;
+
+        document.getElementById('stackStartScreen').style.display = 'none';
+        document.getElementById('stackOverScreen').style.display = 'none';
+
+        const baseWidth = Math.min(220, this.width * 0.6);
+        const baseHeight = 24;
+        const baseX = (this.width - baseWidth) / 2;
+        const baseY = this.heightPx - 80;
+
+        // Base plate layer
+        this.stack.push({
+          x: baseX,
+          y: baseY,
+          w: baseWidth,
+          h: baseHeight,
+          hasButter: true
+        });
+
+        this.spawnLayer();
+        this.loop();
+      },
+
+      stop() {
+        this.running = false;
+        if (this.animId) cancelAnimationFrame(this.animId);
+      },
+
+      spawnLayer() {
+        const last = this.stack[this.stack.length - 1];
+        const speed = 3.5 + Math.min(6, this.height * 0.25);
+        this.currentLayer = {
+          x: 0,
+          y: last.y - 24,
+          w: last.w,
+          h: 24,
+          speed: (this.height % 2 === 0 ? 1 : -1) * speed,
+          hasButter: (this.height % 5 === 0)
+        };
+      },
+
+      drop() {
+        if (!this.running || isPaused || !this.currentLayer) return;
+
+        const cur = this.currentLayer;
+        const prev = this.stack[this.stack.length - 1];
+        const diff = cur.x - prev.x;
+        const tolerance = 4; // Perfect alignment threshold
+
+        if (Math.abs(diff) <= tolerance) {
+          // PERFECT DROP!
+          cur.x = prev.x; // Snap
+          this.combo++;
+          const bonus = 50 * this.combo;
+          this.score += 100 + bonus;
+          SoundEngine.playPerfect();
+          this.createSparkles(cur.x + cur.w / 2, cur.y, '#F59E0B', 15);
+          showToast(`PERFECT STACK! Combo x${this.combo}`, '✨');
+        } else if (diff > 0) {
+          // Overhang to the right
+          const overlap = prev.w - diff;
+          if (overlap <= 0) {
+            this.gameOver();
+            return;
+          }
+          // Cut overhang
+          const cutW = cur.w - overlap;
+          this.fallingPieces.push({
+            x: cur.x + overlap,
+            y: cur.y,
+            w: cutW,
+            h: cur.h,
+            vx: 3,
+            vy: 2,
+            rot: 0.1
+          });
+          cur.w = overlap;
+          this.combo = 0;
+          this.score += 20;
+          SoundEngine.playDrop();
+        } else {
+          // Overhang to the left
+          const overlap = cur.w + diff;
+          if (overlap <= 0) {
+            this.gameOver();
+            return;
+          }
+          const cutW = -diff;
+          this.fallingPieces.push({
+            x: cur.x,
+            y: cur.y,
+            w: cutW,
+            h: cur.h,
+            vx: -3,
+            vy: 2,
+            rot: -0.1
+          });
+          cur.x = prev.x;
+          cur.w = overlap;
+          this.combo = 0;
+          this.score += 20;
+          SoundEngine.playDrop();
+        }
+
+        this.stack.push(cur);
+        this.height++;
+        this.currentLayer = null;
+
+        // Update HUD
+        document.getElementById('stackHeight').textContent = this.height;
+        document.getElementById('stackScore').textContent = this.score;
+
+        // Check achievement
+        if (this.height >= 12) {
+          Storage.unlockAchievement('stackMaster');
+        }
+
+        // Camera scroll
+        const targetCameraY = Math.max(0, (this.height - 6) * 24);
+        this.cameraY = targetCameraY;
+
+        this.spawnLayer();
+      },
+
+      createSparkles(x, y, color, count = 10) {
+        for (let i = 0; i < count; i++) {
+          this.particles.push({
+            x, y,
+            vx: (Math.random() - 0.5) * 6,
+            vy: (Math.random() - 0.5) * 6 - 2,
+            rad: Math.random() * 4 + 2,
+            color,
+            alpha: 1
+          });
+        }
+      },
+
+      gameOver() {
+        this.running = false;
+        SoundEngine.playCollapse();
+        Storage.recordGame('stack', this.score);
+
+        document.getElementById('stackOverHeight').textContent = this.height;
+        document.getElementById('stackOverScore').textContent = this.score;
+
+        let msg = 'Keep practicing your timing!';
+        if (this.height >= 15) msg = 'Waffle Tower Architect! Stillwater legend!';
+        else if (this.height >= 8) msg = 'Delicious height! Very golden stack!';
+        document.getElementById('stackOverMessage').textContent = msg;
+
+        setTimeout(() => {
+          document.getElementById('stackOverScreen').style.display = 'flex';
+        }, 500);
+      },
+
+      loop() {
+        if (!this.running) return;
+
+        if (!isPaused) {
+          this.update();
+          this.render();
+        }
+        this.animId = requestAnimationFrame(() => this.loop());
+      },
+
+      update() {
+        // Move current sliding layer
+        if (this.currentLayer) {
+          this.currentLayer.x += this.currentLayer.speed;
+          if (this.currentLayer.x + this.currentLayer.w > this.width) {
+            this.currentLayer.speed = -Math.abs(this.currentLayer.speed);
+          } else if (this.currentLayer.x < 0) {
+            this.currentLayer.speed = Math.abs(this.currentLayer.speed);
+          }
+        }
+
+        // Falling cut-off pieces
+        for (let i = this.fallingPieces.length - 1; i >= 0; i--) {
+          const p = this.fallingPieces[i];
+          p.x += p.vx;
+          p.y += p.vy;
+          p.vy += 0.4;
+          if (p.y > this.heightPx + 100) {
+            this.fallingPieces.splice(i, 1);
+          }
+        }
+
+        // Particles
+        for (let i = this.particles.length - 1; i >= 0; i--) {
+          const pt = this.particles[i];
+          pt.x += pt.vx;
+          pt.y += pt.vy;
+          pt.alpha -= 0.03;
+          if (pt.alpha <= 0) {
+            this.particles.splice(i, 1);
+          }
+        }
+      },
+
+      render() {
+        const ctx = this.ctx;
+        ctx.clearRect(0, 0, this.width, this.heightPx);
+
+        ctx.save();
+        ctx.translate(0, this.cameraY);
+
+        // Draw Base Table / Plate
+        const first = this.stack[0];
+        if (first) {
+          ctx.fillStyle = '#E5E7EB';
+          ctx.beginPath();
+          ctx.ellipse(this.width / 2, first.y + first.h + 8, first.w * 0.75, 14, 0, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.strokeStyle = '#9CA3AF';
+          ctx.lineWidth = 2;
+          ctx.stroke();
+        }
+
+        // Draw Stacked Waffles
+        for (let i = 0; i < this.stack.length; i++) {
+          this.drawWaffle(this.stack[i]);
+        }
+
+        // Draw Current Moving Layer
+        if (this.currentLayer) {
+          this.drawWaffle(this.currentLayer, true);
+        }
+
+        // Draw Falling Offcuts
+        for (let i = 0; i < this.fallingPieces.length; i++) {
+          const p = this.fallingPieces[i];
+          ctx.save();
+          ctx.fillStyle = '#D97706';
+          ctx.fillRect(p.x, p.y, p.w, p.h);
+          ctx.restore();
+        }
+
+        // Draw Particles
+        for (let i = 0; i < this.particles.length; i++) {
+          const pt = this.particles[i];
+          ctx.save();
+          ctx.globalAlpha = Math.max(0, pt.alpha);
+          ctx.fillStyle = pt.color;
+          ctx.beginPath();
+          ctx.arc(pt.x, pt.y, pt.rad, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.restore();
+        }
+
+        ctx.restore();
+      },
+
+      drawWaffle(item, isCurrent = false) {
+        const ctx = this.ctx;
+        ctx.save();
+
+        // Drop Shadow
+        ctx.fillStyle = 'rgba(69, 26, 3, 0.2)';
+        ctx.beginPath();
+        ctx.roundRect(item.x + 2, item.y + 4, item.w, item.h, 6);
+        ctx.fill();
+
+        // Main Waffle Body (Golden Belgian Texture)
+        const grad = ctx.createLinearGradient(item.x, item.y, item.x, item.y + item.h);
+        grad.addColorStop(0, '#FBBF24');
+        grad.addColorStop(1, '#D97706');
+        ctx.fillStyle = grad;
+        ctx.strokeStyle = '#92400E';
+        ctx.lineWidth = 2;
+
+        ctx.beginPath();
+        ctx.roundRect(item.x, item.y, item.w, item.h, 6);
+        ctx.fill();
+        ctx.stroke();
+
+        // Waffle grid pockets
+        ctx.fillStyle = '#B45309';
+        const pocketW = 12;
+        const pocketH = 8;
+        const step = 16;
+        for (let px = item.x + 6; px < item.x + item.w - 10; px += step) {
+          ctx.beginPath();
+          ctx.roundRect(px, item.y + 7, pocketW, pocketH, 2);
+          ctx.fill();
+        }
+
+        // Butter Cube if present
+        if (item.hasButter) {
+          ctx.fillStyle = '#FEF08A';
+          ctx.strokeStyle = '#CA8A04';
+          ctx.lineWidth = 1.5;
+          ctx.beginPath();
+          ctx.roundRect(item.x + item.w / 2 - 8, item.y - 10, 16, 12, 3);
+          ctx.fill();
+          ctx.stroke();
+
+          // Maple syrup drip
+          ctx.fillStyle = '#92400E';
+          ctx.beginPath();
+          ctx.arc(item.x + item.w / 2, item.y + 2, 4, 0, Math.PI);
+          ctx.fill();
+        }
+
+        ctx.restore();
+      }
+    };
+
+    /* =======================================================
+       GAME 02: BUILD YOUR DREAM WAFFLE
+       ======================================================= */
+    const WaffleBuilder = {
+      canvas: null,
+      ctx: null,
+      toppings: [],
+      plateStyle: 'porcelain',
+      selectedToppingType: 'strawberry',
+      challenges: [
+        { title: 'Stillwater Sunrise', reqs: ['strawberry', 'butter', 'syrup'] },
+        { title: 'Choco-Berry Dream', reqs: ['choco', 'strawberry', 'cream'] },
+        { title: 'Sweet & Savory Legend', reqs: ['bacon', 'syrup', 'butter'] },
+        { title: 'Berry Mountain', reqs: ['strawberry', 'blueberry', 'cream'] }
+      ],
+      currentChallengeIdx: 0,
+
+      init() {
+        this.canvas = document.getElementById('wafflePlateCanvas');
+        this.ctx = this.canvas.getContext('2d');
+        this.toppings = [];
+        this.renderPlate();
+        this.updateToppingCount();
+        this.newChallenge();
+
+        // Tap plate to add currently selected topping
+        this.canvas.onclick = (e) => {
+          const rect = this.canvas.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          this.addToppingAt(x, y);
+        };
+      },
+
+      setPlate(style) {
+        SoundEngine.playClick();
+        this.plateStyle = style;
+        document.querySelectorAll('.plate-chip').forEach(c => c.classList.remove('active'));
+        if (event && event.target) event.target.classList.add('active');
+        this.renderPlate();
+      },
+
+      addTopping(type) {
+        SoundEngine.playClick();
+        this.selectedToppingType = type;
+        // Add topping near center with organic jitter
+        const angle = Math.random() * Math.PI * 2;
+        const dist = Math.random() * 65;
+        const cx = 140 + Math.cos(angle) * dist;
+        const cy = 140 + Math.sin(angle) * dist;
+        this.addToppingAt(cx, cy, type);
+      },
+
+      addToppingAt(x, y, type = this.selectedToppingType) {
+        // Enforce boundary within waffle circle
+        const dx = x - 140;
+        const dy = y - 140;
+        if (Math.hypot(dx, dy) > 95) {
+          x = 140 + (dx / Math.hypot(dx, dy)) * 85;
+          y = 140 + (dy / Math.hypot(dx, dy)) * 85;
+        }
+
+        this.toppings.push({
+          type,
+          x,
+          y,
+          rot: (Math.random() - 0.5) * 0.8,
+          scale: 0.85 + Math.random() * 0.3
+        });
+
+        SoundEngine.playDrop();
+        this.renderPlate();
+        this.updateToppingCount();
+
+        if (this.toppings.length >= 6) {
+          Storage.unlockAchievement('masterPlater');
+        }
+      },
+
+      undo() {
+        if (this.toppings.length > 0) {
+          SoundEngine.playClick();
+          this.toppings.pop();
+          this.renderPlate();
+          this.updateToppingCount();
+        }
+      },
+
+      clearAll() {
+        SoundEngine.playClick();
+        this.toppings = [];
+        this.renderPlate();
+        this.updateToppingCount();
+      },
+
+      newChallenge() {
+        this.currentChallengeIdx = (this.currentChallengeIdx + 1) % this.challenges.length;
+        const ch = this.challenges[this.currentChallengeIdx];
+        document.getElementById('builderChallengeGoal').textContent = `${ch.title} (${ch.reqs.join(' + ')})`;
+      },
+
+      updateToppingCount() {
+        const count = this.toppings.length;
+        document.getElementById('toppingCounter').textContent = count;
+
+        let rating = 'Fresh Batter';
+        if (count >= 8) rating = 'Masterpiece 👑';
+        else if (count >= 5) rating = 'Delicious Stack 🍓';
+        else if (count >= 2) rating = 'Getting Tasty 🥞';
+        document.getElementById('creationRatingTag').textContent = rating;
+      },
+
+      renderPlate() {
+        const ctx = this.ctx;
+        ctx.clearRect(0, 0, 280, 280);
+
+        // 1. Draw Plate Background
+        ctx.save();
+        if (this.plateStyle === 'porcelain') {
+          ctx.fillStyle = '#FFFFFF';
+          ctx.strokeStyle = '#E5E7EB';
+          ctx.lineWidth = 8;
+        } else if (this.plateStyle === 'diner') {
+          ctx.fillStyle = '#FEF2F2';
+          ctx.strokeStyle = '#DC2626';
+          ctx.lineWidth = 10;
+        } else if (this.plateStyle === 'slate') {
+          ctx.fillStyle = '#1F2937';
+          ctx.strokeStyle = '#374151';
+          ctx.lineWidth = 8;
+        } else if (this.plateStyle === 'gold') {
+          ctx.fillStyle = '#FEF3C7';
+          ctx.strokeStyle = '#D97706';
+          ctx.lineWidth = 8;
+        }
+        ctx.beginPath();
+        ctx.arc(140, 140, 132, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+        ctx.restore();
+
+        // 2. Draw Golden Belgian Waffle Base
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(140, 140, 95, 0, Math.PI * 2);
+        const wGrad = ctx.createRadialGradient(140, 140, 20, 140, 140, 95);
+        wGrad.addColorStop(0, '#FBBF24');
+        wGrad.addColorStop(0.85, '#D97706');
+        wGrad.addColorStop(1, '#92400E');
+        ctx.fillStyle = wGrad;
+        ctx.fill();
+        ctx.strokeStyle = '#78350F';
+        ctx.lineWidth = 3;
+        ctx.stroke();
+
+        // Waffle Grid Inset Pockets
+        ctx.fillStyle = '#92400E';
+        for (let gx = 65; gx <= 215; gx += 26) {
+          for (let gy = 65; gy <= 215; gy += 26) {
+            const dist = Math.hypot(gx + 10 - 140, gy + 10 - 140);
+            if (dist < 80) {
+              ctx.beginPath();
+              ctx.roundRect(gx, gy, 18, 18, 3);
+              ctx.fill();
+            }
+          }
+        }
+        ctx.restore();
+
+        // 3. Render Toppings in order
+        for (let t of this.toppings) {
+          this.drawToppingItem(t);
+        }
+      },
+
+      drawToppingItem(t) {
+        const ctx = this.ctx;
+        ctx.save();
+        ctx.translate(t.x, t.y);
+        ctx.rotate(t.rot);
+        ctx.scale(t.scale, t.scale);
+
+        if (t.type === 'strawberry') {
+          // Strawberry slice
+          ctx.fillStyle = '#EF4444';
+          ctx.strokeStyle = '#991B1B';
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          ctx.moveTo(0, -14);
+          ctx.bezierCurveTo(14, -14, 16, 8, 0, 16);
+          ctx.bezierCurveTo(-16, 8, -14, -14, 0, -14);
+          ctx.fill();
+          ctx.stroke();
+          // Seed dots
+          ctx.fillStyle = '#FEF08A';
+          ctx.fillRect(-4, -4, 2, 2);
+          ctx.fillRect(4, -2, 2, 2);
+          ctx.fillRect(0, 4, 2, 2);
+        } else if (t.type === 'banana') {
+          // Banana slice
+          ctx.fillStyle = '#FEF9C3';
+          ctx.strokeStyle = '#CA8A04';
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          ctx.arc(0, 0, 14, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.stroke();
+          ctx.fillStyle = '#78350F';
+          ctx.fillRect(-2, -2, 4, 4);
+        } else if (t.type === 'blueberry') {
+          // Blueberry sphere
+          ctx.fillStyle = '#312E81';
+          ctx.strokeStyle = '#1E1B4B';
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          ctx.arc(0, 0, 11, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.stroke();
+          // Shine
+          ctx.fillStyle = '#818CF8';
+          ctx.beginPath();
+          ctx.arc(-3, -3, 3, 0, Math.PI * 2);
+          ctx.fill();
+        } else if (t.type === 'choco') {
+          // Chocolate Chip
+          ctx.fillStyle = '#451A03';
+          ctx.beginPath();
+          ctx.moveTo(0, -10);
+          ctx.lineTo(8, 6);
+          ctx.lineTo(-8, 6);
+          ctx.closePath();
+          ctx.fill();
+        } else if (t.type === 'cream') {
+          // Whipped Cream Swirl
+          ctx.fillStyle = '#FFFFFF';
+          ctx.strokeStyle = '#E5E7EB';
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          ctx.arc(0, 2, 14, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.stroke();
+          ctx.beginPath();
+          ctx.arc(0, -6, 8, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.stroke();
+        } else if (t.type === 'syrup') {
+          // Amber Syrup Swirl
+          ctx.fillStyle = 'rgba(146, 64, 14, 0.85)';
+          ctx.beginPath();
+          ctx.ellipse(0, 0, 22, 10, Math.PI / 4, 0, Math.PI * 2);
+          ctx.fill();
+        } else if (t.type === 'butter') {
+          // Butter pat
+          ctx.fillStyle = '#FEF08A';
+          ctx.strokeStyle = '#CA8A04';
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          ctx.roundRect(-10, -10, 20, 20, 4);
+          ctx.fill();
+          ctx.stroke();
+        } else if (t.type === 'pecan') {
+          // Pecan half
+          ctx.fillStyle = '#78350F';
+          ctx.beginPath();
+          ctx.ellipse(0, 0, 14, 7, 0, 0, Math.PI * 2);
+          ctx.fill();
+        } else if (t.type === 'bacon') {
+          // Bacon strip
+          ctx.fillStyle = '#991B1B';
+          ctx.beginPath();
+          ctx.roundRect(-16, -5, 32, 10, 3);
+          ctx.fill();
+          ctx.fillStyle = '#F87171';
+          ctx.fillRect(-12, -2, 24, 4);
+        } else if (t.type === 'sprinkles') {
+          // Colorful sprinkles
+          const colors = ['#EF4444', '#3B82F6', '#10B981', '#F59E0B', '#8B5CF6'];
+          for (let s = 0; s < 4; s++) {
+            ctx.fillStyle = colors[s % colors.length];
+            ctx.fillRect((s - 2) * 6, (s % 2) * 5 - 3, 7, 3);
+          }
+        }
+
+        ctx.restore();
+      },
+
+      showMasterpiece() {
+        if (this.toppings.length === 0) {
+          showToast('Add some toppings first!', '🧇');
+          return;
+        }
+
+        SoundEngine.playFanfare();
+
+        // Calculate score
+        const distinct = new Set(this.toppings.map(t => t.type)).size;
+        const total = this.toppings.length;
+        const challenge = this.challenges[this.currentChallengeIdx];
+        const challengeMet = challenge.reqs.every(r => this.toppings.some(t => t.type === r));
+
+        let score = distinct * 150 + total * 40;
+        if (challengeMet) score += 300;
+
+        Storage.recordGame('builder', score);
+
+        // Convert canvas to image for showcase
+        const dataURL = this.canvas.toDataURL('image/png');
+        document.getElementById('masterpieceImg').src = dataURL;
+        document.getElementById('masterpieceScore').textContent = score;
+
+        let stars = (4.0 + (distinct / 10) + (challengeMet ? 0.8 : 0)).toFixed(1);
+        if (stars > 5.0) stars = '5.0';
+        document.getElementById('masterpieceRating').textContent = `${stars} ★`;
+
+        let title = 'The Stillwater Artisan Waffle';
+        if (distinct >= 5) title = 'The Grand Breakfast Feast 👑';
+        else if (challengeMet) title = `${challenge.title} Special ⭐`;
+        document.getElementById('masterpieceTitle').textContent = title;
+
+        document.getElementById('builderShowcaseScreen').style.display = 'flex';
+      },
+
+      shareCreation() {
+        SoundEngine.playClick();
+        if (navigator.share) {
+          navigator.share({
+            title: "Look at my Dream Waffle from Just Wafflin' Fun Zone!",
+            text: "I just created a delicious waffle masterpiece with a score of " + document.getElementById('masterpieceScore').textContent + " at Just Wafflin' Fun Zone in Stillwater, OK!",
+            url: window.location.href
+          }).catch(() => {});
+        } else {
+          // Fallback: Copy link & show toast
+          navigator.clipboard.writeText(window.location.href);
+          showToast('Link copied to clipboard! Share with friends!', '📋');
+        }
+      },
+
+      reset() {
+        SoundEngine.playClick();
+        this.toppings = [];
+        this.renderPlate();
+        this.updateToppingCount();
+        this.newChallenge();
+        document.getElementById('builderShowcaseScreen').style.display = 'none';
+      }
+    };
+
+    /* =======================================================
+       GAME 03: SYRUP CATCH CHALLENGE
+       ======================================================= */
+    const CatchGame = {
+      canvas: null,
+      ctx: null,
+      running: false,
+      plateX: 150,
+      plateW: 88,
+      plateH: 20,
+      lives: 3,
+      score: 0,
+      timeLeft: 60,
+      items: [],
+      particles: [],
+      frenzyTimer: 0,
+      timerInterval: null,
+      spawnTimer: 0,
+      animId: null,
+      width: 360,
+      heightPx: 480,
+
+      init() {
+        this.canvas = document.getElementById('catchCanvas');
+        this.ctx = this.canvas.getContext('2d');
+        this.resize();
+        window.addEventListener('resize', () => { if (currentGame === 'catch') this.resize(); });
+
+        document.getElementById('catchStartScreen').style.display = 'flex';
+        document.getElementById('catchOverScreen').style.display = 'none';
+
+        // Mouse & Touch tracking on canvas
+        const updatePlatePos = (clientX) => {
+          const rect = this.canvas.getBoundingClientRect();
+          const relX = clientX - rect.left;
+          this.plateX = Math.max(0, Math.min(this.width - this.plateW, relX - this.plateW / 2));
+        };
+
+        this.canvas.onmousemove = (e) => {
+          if (this.running && !isPaused) updatePlatePos(e.clientX);
+        };
+
+        this.canvas.ontouchmove = (e) => {
+          if (this.running && !isPaused && e.touches.length > 0) {
+            e.preventDefault();
+            updatePlatePos(e.touches[0].clientX);
+          }
+        };
+
+        this.canvas.addEventListener('touchstart', (e) => {
+          if (this.running) {
+            e.preventDefault();
+            if (!isPaused && e.touches.length > 0) updatePlatePos(e.touches[0].clientX);
+          }
+        }, { passive: false });
+
+        // Keyboard Left/Right
+        window.addEventListener('keydown', (e) => {
+          if (currentGame === 'catch' && this.running && !isPaused) {
+            if (e.code === 'ArrowLeft' || e.code === 'KeyA') {
+              this.plateX = Math.max(0, this.plateX - 25);
+            } else if (e.code === 'ArrowRight' || e.code === 'KeyD') {
+              this.plateX = Math.min(this.width - this.plateW, this.plateX + 25);
+            }
+          }
+        });
+      },
+
+      resize() {
+        const container = document.getElementById('game3Container');
+        const w = container.clientWidth || 360;
+        const h = container.clientHeight || 480;
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        this.width = w;
+        this.heightPx = h;
+        this.canvas.width = Math.floor(w * dpr);
+        this.canvas.height = Math.floor(h * dpr);
+        this.canvas.style.width = w + 'px';
+        this.canvas.style.height = h + 'px';
+        this.ctx.resetTransform();
+        this.ctx.scale(dpr, dpr);
+        this.plateX = Math.max(0, Math.min(this.width - this.plateW, (this.width - this.plateW) / 2));
+      },
+
+      start() {
+        SoundEngine.playClick();
+        this.resize();
+        this.running = true;
+        this.lives = 3;
+        this.score = 0;
+        this.timeLeft = 60;
+        this.frenzyTimer = 0;
+        this.items = [];
+        this.particles = [];
+        this.spawnTimer = 0;
+
+        document.getElementById('catchStartScreen').style.display = 'none';
+        document.getElementById('catchOverScreen').style.display = 'none';
+        this.updateHUD();
+
+        if (this.timerInterval) clearInterval(this.timerInterval);
+        this.timerInterval = setInterval(() => {
+          if (!this.running || isPaused) return;
+          this.timeLeft--;
+          if (this.frenzyTimer > 0) this.frenzyTimer--;
+          this.updateHUD();
+          if (this.timeLeft <= 0) {
+            this.gameOver('time');
+          }
+        }, 1000);
+
+        this.loop();
+      },
+
+      stop() {
+        this.running = false;
+        if (this.timerInterval) clearInterval(this.timerInterval);
+        if (this.animId) cancelAnimationFrame(this.animId);
+      },
+
+      updateHUD() {
+        document.getElementById('catchTimer').textContent = this.timeLeft;
+        document.getElementById('catchScore').textContent = this.score;
+        document.getElementById('catchLives').textContent = '❤️'.repeat(Math.max(0, this.lives));
+      },
+
+      spawnItem() {
+        const rand = Math.random();
+        let type = 'syrup';
+        let pts = 10;
+        let speed = 2.8 + (60 - this.timeLeft) * 0.05;
+
+        if (rand < 0.35) {
+          type = 'syrup';
+          pts = 10;
+        } else if (rand < 0.60) {
+          type = 'strawberry';
+          pts = 20;
+        } else if (rand < 0.78) {
+          type = 'butter';
+          pts = 30;
+        } else if (rand < 0.88) {
+          type = 'gold'; // Gold medallion bonus
+          pts = 50;
+        } else {
+          type = 'hazard'; // Burnt toast / bomb
+          pts = 0;
+        }
+
+        const x = 30 + Math.random() * (this.width - 60);
+        this.items.push({
+          x,
+          y: -20,
+          type,
+          pts,
+          speed,
+          radius: 16
+        });
+      },
+
+      gameOver(reason = 'time') {
+        this.running = false;
+        if (this.timerInterval) clearInterval(this.timerInterval);
+
+        Storage.recordGame('catch', this.score);
+        document.getElementById('catchOverScore').textContent = this.score;
+        const oz = (this.score * 0.12).toFixed(1);
+        document.getElementById('catchOverOz').textContent = `${oz} oz`;
+
+        if (reason === 'lives') {
+          SoundEngine.playCollapse();
+          document.getElementById('catchOverTitle').textContent = 'Out of Hearts!';
+          document.getElementById('catchOverMessage').textContent = 'Watch out for burnt crumbs next time!';
+        } else {
+          SoundEngine.playFanfare();
+          document.getElementById('catchOverTitle').textContent = "Time's Up!";
+          document.getElementById('catchOverMessage').textContent = 'Outstanding breakfast catching!';
+        }
+
+        if (this.score >= 350) {
+          Storage.unlockAchievement('syrupVirtuoso');
+        }
+
+        setTimeout(() => {
+          document.getElementById('catchOverScreen').style.display = 'flex';
+        }, 400);
+      },
+
+      loop() {
+        if (!this.running) return;
+
+        if (!isPaused) {
+          this.update();
+          this.render();
+        }
+        this.animId = requestAnimationFrame(() => this.loop());
+      },
+
+      update() {
+        // Spawn timer
+        this.spawnTimer++;
+        const spawnRate = Math.max(30, 65 - (60 - this.timeLeft));
+        if (this.spawnTimer >= spawnRate) {
+          this.spawnItem();
+          this.spawnTimer = 0;
+        }
+
+        const plateY = this.heightPx - 40;
+
+        // Move items
+        for (let i = this.items.length - 1; i >= 0; i--) {
+          const item = this.items[i];
+          item.y += item.speed;
+
+          // Check collision with waffle plate
+          if (
+            item.y + item.radius >= plateY &&
+            item.y - item.radius <= plateY + this.plateH &&
+            item.x >= this.plateX - 10 &&
+            item.x <= this.plateX + this.plateW + 10
+          ) {
+            // Caught item!
+            if (item.type === 'hazard') {
+              this.lives--;
+              SoundEngine.playHurt();
+              this.createSplash(item.x, plateY, '#374151', 12);
+              this.updateHUD();
+              if (this.lives <= 0) {
+                this.gameOver('lives');
+                return;
+              }
+            } else {
+              const multi = this.frenzyTimer > 0 ? 2 : 1;
+              const earned = item.pts * multi;
+              this.score += earned;
+
+              if (item.type === 'gold') {
+                this.frenzyTimer = 6; // 6 seconds 2x frenzy
+                SoundEngine.playGolden();
+                showToast('2X FRENZY ACTIVATED!', '⭐');
+              } else {
+                SoundEngine.playCatch();
+              }
+
+              this.createSplash(item.x, plateY, item.type === 'syrup' ? '#D97706' : '#EF4444', 8);
+              this.updateHUD();
+            }
+
+            this.items.splice(i, 1);
+            continue;
+          }
+
+          // Off bottom of screen
+          if (item.y > this.heightPx + 30) {
+            this.items.splice(i, 1);
+          }
+        }
+
+        // Update particles
+        for (let i = this.particles.length - 1; i >= 0; i--) {
+          const p = this.particles[i];
+          p.x += p.vx;
+          p.y += p.vy;
+          p.alpha -= 0.04;
+          if (p.alpha <= 0) {
+            this.particles.splice(i, 1);
+          }
+        }
+      },
+
+      createSplash(x, y, color, count = 8) {
+        for (let i = 0; i < count; i++) {
+          this.particles.push({
+            x, y,
+            vx: (Math.random() - 0.5) * 5,
+            vy: (Math.random() - 0.5) * 4 - 2,
+            rad: Math.random() * 4 + 2,
+            color,
+            alpha: 1
+          });
+        }
+      },
+
+      render() {
+        const ctx = this.ctx;
+        ctx.clearRect(0, 0, this.width, this.heightPx);
+
+        // Frenzy Glow Border
+        if (this.frenzyTimer > 0) {
+          ctx.strokeStyle = 'rgba(245, 158, 11, 0.4)';
+          ctx.lineWidth = 12;
+          ctx.strokeRect(0, 0, this.width, this.heightPx);
+        }
+
+        // Draw Player Waffle Plate
+        const plateY = this.heightPx - 40;
+        ctx.save();
+        // Ceramic plate
+        ctx.fillStyle = '#FFFFFF';
+        ctx.strokeStyle = '#92400E';
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.roundRect(this.plateX, plateY, this.plateW, this.plateH, 10);
+        ctx.fill();
+        ctx.stroke();
+
+        // Mini waffle inside plate
+        ctx.fillStyle = '#F59E0B';
+        ctx.beginPath();
+        ctx.roundRect(this.plateX + 6, plateY + 3, this.plateW - 12, this.plateH - 6, 6);
+        ctx.fill();
+        ctx.restore();
+
+        // Draw Falling Items
+        for (let item of this.items) {
+          ctx.save();
+          ctx.translate(item.x, item.y);
+
+          if (item.type === 'syrup') {
+            ctx.fillStyle = '#D97706';
+            ctx.strokeStyle = '#92400E';
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.arc(0, 4, 10, 0, Math.PI);
+            ctx.lineTo(0, -10);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+          } else if (item.type === 'strawberry') {
+            ctx.font = '22px sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('🍓', 0, 0);
+          } else if (item.type === 'butter') {
+            ctx.font = '22px sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('🧈', 0, 0);
+          } else if (item.type === 'gold') {
+            ctx.font = '24px sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('⭐', 0, 0);
+          } else if (item.type === 'hazard') {
+            ctx.font = '22px sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('💣', 0, 0);
+          }
+
+          ctx.restore();
+        }
+
+        // Draw Particles
+        for (let p of this.particles) {
+          ctx.save();
+          ctx.globalAlpha = Math.max(0, p.alpha);
+          ctx.fillStyle = p.color;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.rad, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.restore();
+        }
+      }
+    };
+
+    /* =======================================================
+       GAME 04: MORNING RUSH ORDER DASH
+       ======================================================= */
+    const RushGame = {
+      running: false,
+      ordersCompleted: 0,
+      totalOrders: 5,
+      tipsEarned: 0,
+      correctCount: 0,
+      currentCustomer: null,
+      currentOrder: null,
+      tray: { base: null, topping: null, side: null, drink: null },
+      timeLeft: 16,
+      timerInterval: null,
+
+      customers: [
+        { name: 'Cowboy Cody', avatar: '🤠' },
+        { name: 'Professor Pete', avatar: '👨‍🏫' },
+        { name: 'Brunching Betty', avatar: '👵' },
+        { name: 'Student Sam', avatar: '🎒' },
+        { name: 'Athlete Austin', avatar: '🏃' }
+      ],
+
+      recipes: [
+        {
+          base: 'Belgian Waffle',
+          topping: 'Strawberries',
+          side: 'Crispy Bacon',
+          drink: 'Stillwater Coffee'
+        },
+        {
+          base: 'Choco Waffle',
+          topping: 'Whipped Cream',
+          side: 'Extra Butter',
+          drink: 'Whole Milk'
+        },
+        {
+          base: 'Chicken & Waffle',
+          topping: 'Banana Butter',
+          side: 'Hash Browns',
+          drink: 'Fresh OJ'
+        },
+        {
+          base: 'Pecan Waffle',
+          topping: 'Blueberries',
+          side: 'Fluffy Eggs',
+          drink: 'Sweet Iced Tea'
+        }
+      ],
+
+      init() {
+        document.getElementById('rushStartScreen').style.display = 'flex';
+        document.getElementById('rushOverScreen').style.display = 'none';
+      },
+
+      start() {
+        SoundEngine.playClick();
+        this.running = true;
+        this.ordersCompleted = 0;
+        this.tipsEarned = 0;
+        this.correctCount = 0;
+
+        document.getElementById('rushStartScreen').style.display = 'none';
+        document.getElementById('rushOverScreen').style.display = 'none';
+
+        this.nextCustomer();
+      },
+
+      stop() {
+        this.running = false;
+        if (this.timerInterval) clearInterval(this.timerInterval);
+      },
+
+      nextCustomer() {
+        if (this.ordersCompleted >= this.totalOrders) {
+          this.shiftComplete();
+          return;
+        }
+
+        this.currentCustomer = this.customers[this.ordersCompleted % this.customers.length];
+        this.currentOrder = this.recipes[Math.floor(Math.random() * this.recipes.length)];
+        this.tray = { base: null, topping: null, side: null, drink: null };
+        this.timeLeft = 16;
+
+        document.getElementById('rushCustomerAvatar').textContent = this.currentCustomer.avatar;
+        document.getElementById('rushCustomerName').textContent = this.currentCustomer.name;
+        document.getElementById('rushOrdersCount').textContent = `${this.ordersCompleted}/${this.totalOrders}`;
+
+        // Render ticket items
+        const list = document.getElementById('rushOrderList');
+        list.innerHTML = `
+          <span class="order-badge">🧇 ${this.currentOrder.base}</span>
+          <span class="order-badge">🍓 ${this.currentOrder.topping}</span>
+          <span class="order-badge">🥓 ${this.currentOrder.side}</span>
+          <span class="order-badge">☕ ${this.currentOrder.drink}</span>
+        `;
+
+        this.updateTrayUI();
+
+        if (this.timerInterval) clearInterval(this.timerInterval);
+        this.timerInterval = setInterval(() => {
+          if (!this.running || isPaused) return;
+          this.timeLeft--;
+          document.getElementById('rushTimerBadge').textContent = `⏱️ ${this.timeLeft}s`;
+
+          if (this.timeLeft <= 0) {
+            SoundEngine.playHurt();
+            showToast('Order expired! Customer impatient!', '⏰');
+            this.ordersCompleted++;
+            this.nextCustomer();
+          }
+        }, 1000);
+      },
+
+      selectItem(category, value) {
+        SoundEngine.playClick();
+        this.tray[category] = value;
+        this.updateTrayUI();
+      },
+
+      updateTrayUI() {
+        const getEmoji = (val) => {
+          if (!val) return '❓';
+          if (val.includes('Belgian') || val.includes('Waffle')) return '🧇';
+          if (val.includes('Choco')) return '🍫';
+          if (val.includes('Chicken')) return '🍗';
+          if (val.includes('Pecan')) return '🥜';
+          if (val.includes('Strawberr')) return '🍓';
+          if (val.includes('Blueberr')) return '🫐';
+          if (val.includes('Banana')) return '🍌';
+          if (val.includes('Cream')) return '🍦';
+          if (val.includes('Bacon')) return '🥓';
+          if (val.includes('Egg')) return '🍳';
+          if (val.includes('Hash')) return '🥔';
+          if (val.includes('Butter')) return '🧈';
+          if (val.includes('Coffee')) return '☕';
+          if (val.includes('OJ')) return '🍊';
+          if (val.includes('Tea')) return '🧋';
+          if (val.includes('Milk')) return '🥛';
+          return '✨';
+        };
+
+        document.getElementById('trayBase').textContent = getEmoji(this.tray.base);
+        document.getElementById('trayTopping').textContent = getEmoji(this.tray.topping);
+        document.getElementById('traySide').textContent = getEmoji(this.tray.side);
+        document.getElementById('trayDrink').textContent = getEmoji(this.tray.drink);
+      },
+
+      serveOrder() {
+        if (!this.running) return;
+
+        // Check completeness
+        if (!this.tray.base || !this.tray.topping || !this.tray.side || !this.tray.drink) {
+          SoundEngine.playHurt();
+          showToast('Tray incomplete! Choose all 4 items.', '⚠️');
+          return;
+        }
+
+        const isCorrect = 
+          this.tray.base === this.currentOrder.base &&
+          this.tray.topping === this.currentOrder.topping &&
+          this.tray.side === this.currentOrder.side &&
+          this.tray.drink === this.currentOrder.drink;
+
+        if (isCorrect) {
+          SoundEngine.playBell();
+          const tip = 3.50 + (this.timeLeft * 0.25);
+          this.tipsEarned += tip;
+          this.correctCount++;
+          showToast(`ORDER UP! +$${tip.toFixed(2)} Tip!`, '🛎️');
+        } else {
+          SoundEngine.playHurt();
+          showToast('Incorrect items! Small tip.', '😕');
+          this.tipsEarned += 0.50;
+        }
+
+        this.ordersCompleted++;
+        this.nextCustomer();
+      },
+
+      shiftComplete() {
+        this.running = false;
+        if (this.timerInterval) clearInterval(this.timerInterval);
+        SoundEngine.playFanfare();
+
+        const accuracy = Math.round((this.correctCount / this.totalOrders) * 100);
+        const score = Math.round(this.tipsEarned * 50 + accuracy * 5);
+
+        Storage.recordGame('rush', score);
+
+        document.getElementById('rushOverTips').textContent = `$${this.tipsEarned.toFixed(2)}`;
+        document.getElementById('rushOverAccuracy').textContent = `${accuracy}%`;
+
+        let msg = 'Great teamwork on the breakfast line!';
+        if (accuracy === 100) {
+          msg = 'PERFECT SHIFT! Stillwater Restaurant MVP!';
+          Storage.unlockAchievement('rushHero');
+        }
+        document.getElementById('rushOverMessage').textContent = msg;
+
+        setTimeout(() => {
+          document.getElementById('rushOverScreen').style.display = 'flex';
+        }, 400);
+      }
+    };
+
+    /* Initialize upon DOM load */
+    window.addEventListener('DOMContentLoaded', () => {
+      Storage.init();
+    });
+  </script>
+</body>
+</html>

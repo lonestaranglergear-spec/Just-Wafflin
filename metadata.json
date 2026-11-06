@@ -1,0 +1,6 @@
+{
+  "name": "JUST WAFFLIN' FUN ZONE",
+  "description": "Premium 4-in-1 interactive restaurant gaming hub for Just Wafflin' in Stillwater, OK. Featuring Waffle Stack Rush, Build Your Dream Waffle, Syrup Catch Challenge, and Morning Rush Order Dash.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
